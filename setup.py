@@ -2,7 +2,10 @@
 import os
 from setuptools import setup
 
-requirements = ["homeassistant"]
+requirements = [
+    "homeassistant",
+    "sqlalchemy",
+]
 with open("requirements_test.txt","r") as f:
     for line in f:
         if "txt" not in line and "#" not in line:

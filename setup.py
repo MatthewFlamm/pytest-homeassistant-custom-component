@@ -14,7 +14,7 @@ with open("requirements_test.txt","r") as f:
 setup(
     author="Matthew Flamm",
     name="pytest-homeassistant-custom-component",
-    version="0.0.2-a",
+    version="0.0.2",
     packages=["pytest_homeassistant_custom_component"],
     python_requires=">=3.7.1",
     install_requires=requirements,

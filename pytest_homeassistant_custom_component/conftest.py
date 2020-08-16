@@ -26,12 +26,12 @@ from homeassistant.helpers import event
 from homeassistant.setup import async_setup_component
 from homeassistant.util import location
 
-from pytest_homeassistant_custom_component.async_mock import MagicMock, Mock, patch
-from pytest_homeassistant_custom_component.ignore_uncaught_exceptions import IGNORE_UNCAUGHT_EXCEPTIONS
+from .async_mock import MagicMock, Mock, patch
+from .ignore_uncaught_exceptions import IGNORE_UNCAUGHT_EXCEPTIONS
 
-pytest.register_assert_rewrite("pytest_homeassistant_custom_component.common")
+pytest.register_assert_rewrite(".common")
 
-from pytest_homeassistant_custom_component.common import (  # noqa: E402, isort:skip
+from .common import (  # noqa: E402, isort:skip
     CLIENT_ID,
     INSTANCES,
     MockUser,
@@ -39,7 +39,7 @@ from pytest_homeassistant_custom_component.common import (  # noqa: E402, isort:
     async_test_home_assistant,
     mock_storage as mock_storage,
 )
-from pytest_homeassistant_custom_component.test_util.aiohttp import mock_aiohttp_client  # noqa: E402, isort:skip
+from .test_util.aiohttp import mock_aiohttp_client  # noqa: E402, isort:skip
 
 
 logging.basicConfig(level=logging.DEBUG)

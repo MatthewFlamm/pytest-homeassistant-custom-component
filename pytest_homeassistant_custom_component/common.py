@@ -1,4 +1,4 @@
-"""Test the helper method for writing pytest_homeassistant_custom_component."""
+"""Test the helper method for writing ."""
 import asyncio
 import collections
 from collections import OrderedDict
@@ -60,7 +60,7 @@ import homeassistant.util.dt as date_util
 from homeassistant.util.unit_system import METRIC_SYSTEM
 import homeassistant.util.yaml.loader as yaml_loader
 
-from pytest_homeassistant_custom_component.async_mock import AsyncMock, Mock, patch
+from .async_mock import AsyncMock, Mock, patch
 
 _LOGGER = logging.getLogger(__name__)
 INSTANCES = []

@@ -40,7 +40,7 @@ for f in files:
     with open(filename, 'r') as file:
         filedata = file.read()
 
-    filedata = filedata.replace("tests.", f'{PACKAGE_DIR}.')
+    filedata = filedata.replace("tests.", '.')
 
     with open(filename, 'w') as file:
         file.write(filedata)

@@ -20,7 +20,7 @@ setup(
     author_email="matthewflamm0@gmail.com",
     description="Experimental package to automatically extract test plugins for Home Assistant custom components",
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 3 - Alpha",
         "Framework :: Pytest",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",

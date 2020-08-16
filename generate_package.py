@@ -30,12 +30,14 @@ os.mkdir(PACKAGE_DIR)
 os.mkdir(os.path.join(PACKAGE_DIR, "test_util"))
 shutil.copy2(os.path.join(TMP_DIR, REQUIREMENTS_FILE), REQUIREMENTS_FILE)
 shutil.copy2(os.path.join(TMP_DIR, "tests", "test_util", "aiohttp.py"), os.path.join(PACKAGE_DIR, "test_util", "aiohttp.py"))
+shutil.copy2(os.path.join(TMP_DIR, "tests", "test_util", "__init__.py"), os.path.join(PACKAGE_DIR, "test_util", "__init__.py"))
+
 for f in files:
     shutil.copy2(os.path.join(TMP_DIR, "tests", f), os.path.join(PACKAGE_DIR, f))
 
     filename = os.path.join(PACKAGE_DIR, f)
     
-    with open(filename, 'r') as file :
+    with open(filename, 'r') as file:
         filedata = file.read()
 
     filedata = filedata.replace("tests.", f'{PACKAGE_DIR}.')

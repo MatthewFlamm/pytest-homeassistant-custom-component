@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 requirements = [
     "homeassistant",
@@ -14,8 +14,8 @@ with open("requirements_test.txt","r") as f:
 setup(
     author="Matthew Flamm",
     name="pytest-homeassistant-custom-component",
-    version="0.0.4",
-    packages=["pytest_homeassistant_custom_component"],
+    version="0.0.5",
+    packages=find_packages(),
     python_requires=">=3.7.1",
     install_requires=requirements,
     license="MIT license",

@@ -46,3 +46,4 @@ for f in files:
         file.write(filedata)
 
 shutil.rmtree(TMP_DIR)
+os.rename(os.path.join(PACKAGE_DIR, "conftest.py"), os.path.join(PACKAGE_DIR, "plugins.py"))

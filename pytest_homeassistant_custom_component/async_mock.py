@@ -1,7 +1,7 @@
 """
 Mock utilities that are async aware.
 
-This file originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
+This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
 """
 import sys
 

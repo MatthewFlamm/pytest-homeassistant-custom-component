@@ -49,7 +49,7 @@ for f in files:
 shutil.rmtree(TMP_DIR)
 os.rename(os.path.join(PACKAGE_DIR, "conftest.py"), os.path.join(PACKAGE_DIR, "plugins.py"))
 
-added_text = "This file originally from homeassistant/core and modified by pytest-homeassistant-custom-component.\n"
+added_text = "This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.\n"
 triple_quote = "\"\"\"\n"
 
 for f in pathlib.Path(PACKAGE_DIR).rglob("*.py"):
@@ -60,3 +60,10 @@ for f in pathlib.Path(PACKAGE_DIR).rglob("*.py"):
     body = "".join(data[1:])
     with open(f, 'w') as new_file:
         new_file.write("".join([new_docstring,body]))
+
+added_text = "# This file is from homeassistant/core.\n"
+        
+with open(REQUIREMENTS_FILE, 'r') as original_file:
+    data = original_file.read()
+with open(REQUIREMENTS_FILE, 'w') as new_file:
+    new_file.write("".join([added_text, data]))

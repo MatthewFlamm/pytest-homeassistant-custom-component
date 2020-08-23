@@ -1,7 +1,7 @@
 """
 Set up some common test helper things.
 
-This file originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
+This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
 """
 import asyncio
 import datetime

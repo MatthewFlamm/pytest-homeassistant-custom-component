@@ -1,7 +1,7 @@
 """
 Aiohttp test utils.
 
-This file originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
+This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
 """
 import asyncio
 from contextlib import contextmanager

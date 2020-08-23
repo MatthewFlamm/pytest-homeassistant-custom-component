@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 
+import pathlib
 import shutil
 import os
 
@@ -47,3 +48,15 @@ for f in files:
 
 shutil.rmtree(TMP_DIR)
 os.rename(os.path.join(PACKAGE_DIR, "conftest.py"), os.path.join(PACKAGE_DIR, "plugins.py"))
+
+added_text = "This file originally from homeassistant/core and modified by pytest-homeassistant-custom-component.\n"
+triple_quote = "\"\"\"\n"
+
+for f in pathlib.Path(PACKAGE_DIR).rglob("*.py"):
+    with open(f, 'r') as original_file:
+        data = original_file.readlines()
+    old_docstring = data[0][3:][:-4]
+    new_docstring = f"{triple_quote}{old_docstring}\n\n{added_text}{triple_quote}"
+    body = "".join(data[1:])
+    with open(f, 'w') as new_file:
+        new_file.write("".join([new_docstring,body]))

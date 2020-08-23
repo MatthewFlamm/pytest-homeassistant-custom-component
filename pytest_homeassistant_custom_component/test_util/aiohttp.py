@@ -1,4 +1,8 @@
-"""Aiohttp test utils."""
+"""
+Aiohttp test utils.
+
+This file originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
+"""
 import asyncio
 from contextlib import contextmanager
 import json as _json

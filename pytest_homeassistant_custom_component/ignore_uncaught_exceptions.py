@@ -1,4 +1,8 @@
-"""List of tests that have uncaught exceptions today. Will be shrunk over time."""
+"""
+List of tests that have uncaught exceptions today. Will be shrunk over time.
+
+This file originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
+"""
 IGNORE_UNCAUGHT_EXCEPTIONS = [
     ("test_homeassistant_bridge", "test_homeassistant_bridge_fan_setup",),
     (

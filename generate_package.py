@@ -11,6 +11,7 @@ CONST_FILE = "const.py"
 
 path  = "." 
 clone = "git clone --depth=1 https://github.com/home-assistant/core.git tmp_dir"
+diff = "git diff --exit-code"
 
 files = [
     "__init__.py",
@@ -69,18 +70,20 @@ for f in pathlib.Path(PACKAGE_DIR).rglob("*.py"):
         new_file.write("".join([new_docstring,body]))
 
 added_text = "# This file is from homeassistant/core.\n"
-        
+
 with open(REQUIREMENTS_FILE, 'r') as original_file:
     data = original_file.read()
 with open(REQUIREMENTS_FILE, 'w') as new_file:
     new_file.write("".join([added_text, data]))
+
+diff_files = os.system(diff)
 
 from pytest_homeassistant_custom_component.const import __version__
 
 with open("README.md", "r") as original_file:
     data = original_file.readlines()
 
-data[2] = f"https://img.shields.io/static/v1?label=HA+core+version&message={__version__}&labelColor=blue\n"
+data[2] = f"![HA core version](https://img.shields.io/static/v1?label=HA+core+version&message={__version__}&labelColor=blue)\n"
 
 with open("README.md", 'w') as new_file:
     new_file.write("".join(data))

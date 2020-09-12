@@ -7,6 +7,7 @@ import os
 TMP_DIR = "tmp_dir"
 PACKAGE_DIR = "pytest_homeassistant_custom_component"
 REQUIREMENTS_FILE = "requirements_test.txt"
+CONST_FILE = "const.py"
 
 path  = "." 
 clone = "git clone --depth=1 https://github.com/home-assistant/core.git tmp_dir"
@@ -30,6 +31,7 @@ os.system(clone) # Cloning
 os.mkdir(PACKAGE_DIR)
 os.mkdir(os.path.join(PACKAGE_DIR, "test_util"))
 shutil.copy2(os.path.join(TMP_DIR, REQUIREMENTS_FILE), REQUIREMENTS_FILE)
+shutil.copy2(os.path.join(TMP_DIR, "homeassistant", CONST_FILE), os.path.join(PACKAGE_DIR, CONST_FILE))
 shutil.copy2(os.path.join(TMP_DIR, "tests", "test_util", "aiohttp.py"), os.path.join(PACKAGE_DIR, "test_util", "aiohttp.py"))
 shutil.copy2(os.path.join(TMP_DIR, "tests", "test_util", "__init__.py"), os.path.join(PACKAGE_DIR, "test_util", "__init__.py"))
 
@@ -49,6 +51,11 @@ for f in files:
 shutil.rmtree(TMP_DIR)
 os.rename(os.path.join(PACKAGE_DIR, "conftest.py"), os.path.join(PACKAGE_DIR, "plugins.py"))
 
+with open(os.path.join(PACKAGE_DIR, CONST_FILE), 'r') as original_file:
+    data = original_file.readlines()
+with open(os.path.join(PACKAGE_DIR, CONST_FILE), 'w') as new_file:
+    new_file.write("".join(data[0:6]))
+
 added_text = "This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.\n"
 triple_quote = "\"\"\"\n"
 
@@ -67,3 +74,15 @@ with open(REQUIREMENTS_FILE, 'r') as original_file:
     data = original_file.read()
 with open(REQUIREMENTS_FILE, 'w') as new_file:
     new_file.write("".join([added_text, data]))
+
+from pytest_homeassistant_custom_component.const import __version__
+
+with open("README.md", "r") as original_file:
+    data = original_file.readlines()
+
+data[2] = f"https://img.shields.io/static/v1?label=HA+core+version&message={__version__}&labelColor=blue\n"
+
+with open("README.md", 'w') as new_file:
+    new_file.write("".join(data))
+
+print(f"Version: {__version__}")

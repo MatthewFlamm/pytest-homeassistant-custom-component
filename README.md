@@ -6,3 +6,13 @@ Experimental package to automatically extract testing plugins from Home Assistan
 
 * For now, this package will be updated randomly with no set schedule.
 * Version of homeassistant is given in pytest_homeassistant_custom_component.const and in the README above
+
+Checklist for making this nearly automatic:
+- [x] Create PR automatically with changes
+- [ ] Use simple integration to test basic functionality upon extraction
+- [ ] When PR merged into master, automatically create release
+  - [ ] bump version
+  - [ ] commit version changes
+  - [ ] tag
+  - [ ] create release
+  - [x] publish to pypi

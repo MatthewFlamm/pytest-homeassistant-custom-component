@@ -11,10 +11,13 @@ with open("requirements_test.txt","r") as f:
         if "txt" not in line and "#" not in line:
             requirements.append(line)
 
+with open("version", "r") as f:
+    __version__ = f.read()
+
 setup(
     author="Matthew Flamm",
     name="pytest-homeassistant-custom-component",
-    version="0.0.7",
+    version=__version__,
     packages=find_packages(),
     python_requires=">=3.7.1",
     install_requires=requirements,

@@ -7,6 +7,13 @@ Experimental package to automatically extract testing plugins from Home Assistan
 * For now, this package will be updated randomly with no set schedule.
 * Version of homeassistant is given in pytest_homeassistant_custom_component.const and in the README above
 
+Usage:
+* All pytest fixtures can be used as normal, like `hass`
+* For helpers:
+  * homeassistant native test: `from tests.common import MockConfigEntry`
+  * custom component test: `from pytest_homeassistant_custom_component.common import MockConfigEntry`
+* See [nwsradar](https://github.com/MatthewFlamm/nwsradar) as an example custom component with tests.
+
 Checklist for making this nearly automatic:
 - [x] Create PR automatically with changes
 - [ ] Use simple integration to test basic functionality upon extraction

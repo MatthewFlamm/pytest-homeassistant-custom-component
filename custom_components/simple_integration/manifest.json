@@ -1,0 +1,9 @@
+{
+  "domain": "simple_integration",
+  "name": "Simple Integration",
+  "config_flow": true,
+  "documentation": "NoWhere",
+  "codeowners": [
+    "@NoOne"
+  ]
+}

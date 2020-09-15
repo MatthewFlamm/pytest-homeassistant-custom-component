@@ -1,0 +1,18 @@
+{
+  "title": "Simple Integration",
+  "config": {
+    "step": {
+      "user": {
+        "data": {
+          "name": "Name"
+        }
+      }
+    },
+    "error": {
+      "unknown": "[%key:common::config_flow::error::unknown%]"
+    },
+    "abort": {
+      "already_configured": "[%key:common::config_flow::abort::already_configured_device%]"
+    }
+  }
+}

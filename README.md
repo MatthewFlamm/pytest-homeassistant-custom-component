@@ -16,7 +16,7 @@ Usage:
 
 Checklist for making this nearly automatic:
 - [x] Create PR automatically with changes
-- [ ] Use simple integration to test basic functionality upon extraction
+- [x] Use simple integration to test basic functionality upon extraction
 - [ ] When PR merged into master, automatically create release
   - [ ] bump version
   - [ ] commit version changes

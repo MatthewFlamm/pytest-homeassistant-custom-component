@@ -7,6 +7,7 @@ jobs:
   generate_package:
     runs-on: "ubuntu-latest"
     steps:
+      - uses: actions/checkout@v2
       - id: next_version
         uses: zwaldowski/semver-release-action@v1
         with:

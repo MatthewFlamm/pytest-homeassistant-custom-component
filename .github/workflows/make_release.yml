@@ -1,0 +1,26 @@
+name: Make Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate_package:
+  runs-on: "ubuntu-latest"
+  steps:
+    - id: next_version
+      uses: zwaldowski/semver-release-action@v1
+        with:
+          dry_run: true
+          bump: patch
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+    - run: echo "${{ steps.next_version.outputs.version }}" > version
+    - run: echo "${{ steps.next_version.outputs.version }}"
+    - run: |
+        git add .
+        git commit -m "Bump version"
+        git push
+        echo ::set-output name=sha::$(git rev-parse HEAD)
+    - uses: zwaldowski/semver-release-action@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        sha: ${{ steps.git_commit.outputs.sha }}

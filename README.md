@@ -2,10 +2,12 @@
 
 ![HA core version](https://img.shields.io/static/v1?label=HA+core+version&message=0.116.0.dev0&labelColor=blue)
 
-Experimental package to automatically extract testing plugins from Home Assistant for custom component testing. Automatic extraction of testing plugins and helpers. It is unknown whether this can be as full featured as the test modules inside of homeassistant/core.
+Package to automatically extract testing plugins from Home Assistant for custom component testing.
+Automatic extraction of testing plugins and helpers.
+The goal is to provide the same functionality as the tests in homeassistant/core.
 
-* For now, this package will be updated randomly with no set schedule.
-* Version of homeassistant is given in pytest_homeassistant_custom_component.const and in the README above
+* For now, the package will be updated _approximately_ weekly.
+* Version of homeassistant/core is given in pytest_homeassistant_custom_component.const and in the README above
 
 Usage:
 * All pytest fixtures can be used as normal, like `hass`
@@ -13,13 +15,8 @@ Usage:
   * homeassistant native test: `from tests.common import MockConfigEntry`
   * custom component test: `from pytest_homeassistant_custom_component.common import MockConfigEntry`
 * See [nwsradar](https://github.com/MatthewFlamm/nwsradar) as an example custom component with tests.
+* Also see tests for `simple_integration` in this repository.
 
-Checklist for making this nearly automatic:
-- [x] Create PR automatically with changes
-- [x] Use simple integration to test basic functionality upon extraction
-- [ ] When PR merged into master, automatically create release
-  - [ ] bump version
-  - [ ] commit version changes
-  - [ ] tag
-  - [ ] create release
-  - [x] publish to pypi
+This repository is set up to be nearly automatic with the goal of being fully automatic.
+To keep the releases up to date, a PR is automatically generated with new changes once a week.
+After manually merging the PR, a second action is manually run to bump the version, make a release, and upload to PyPI.

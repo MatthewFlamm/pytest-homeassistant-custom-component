@@ -20,3 +20,5 @@ Usage:
 This repository is set up to be nearly automatic with the goal of being fully automatic.
 To keep the releases up to date, a PR is automatically generated with new changes once a week.
 After manually merging the PR, a second action is manually run to bump the version, make a release, and upload to PyPI.
+
+This package was inspired by [pytest-homeassistant](https://github.com/boralyl/pytest-homeassistant) by @boralyl, but is intended to more closely and automatically track the homeassistant/core library.

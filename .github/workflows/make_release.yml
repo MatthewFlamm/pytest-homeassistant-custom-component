@@ -27,3 +27,15 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           sha: ${{ steps.git_commit.outputs.sha }}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ steps.next_version.outputs.version }}
+          release_name: Release ${{ steps.next_version.outputs.version }}
+          body: |
+            Automatic release
+          draft: false
+          prerelease: false

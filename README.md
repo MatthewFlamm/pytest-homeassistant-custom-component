@@ -14,7 +14,7 @@ Usage:
 * For helpers:
   * home-assistant/core native test: `from tests.common import MockConfigEntry`
   * custom component test: `from pytest_homeassistant_custom_component.common import MockConfigEntry`
-* See [nwsradar](https://github.com/MatthewFlamm/nwsradar) as an example custom component with tests.
+* See [list of custom components](https://github.com/MatthewFlamm/pytest-homeassistant-custom-component/network/dependents) as examples that use this package.
 * Also see tests for `simple_integration` in this repository.
 
 This repository is set up to be nearly automatic with the goal of being fully automatic.

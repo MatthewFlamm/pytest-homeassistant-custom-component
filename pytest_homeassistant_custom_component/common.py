@@ -211,7 +211,6 @@ async def async_test_home_assistant(loop):
     hass.config.units = METRIC_SYSTEM
     hass.config.media_dirs = {"local": get_test_config_dir("media")}
     hass.config.skip_pip = True
-    hass.config.legacy_templates = False
 
     hass.config_entries = config_entries.ConfigEntries(hass, {})
     hass.config_entries._entries = []
@@ -969,7 +968,7 @@ async def flush_store(store):
 
 async def get_system_health_info(hass, domain):
     """Get system health info."""
-    return await hass.data["system_health"]["info"][domain](hass)
+    return await hass.data["system_health"][domain].info_callback(hass)
 
 
 def mock_integration(hass, module):

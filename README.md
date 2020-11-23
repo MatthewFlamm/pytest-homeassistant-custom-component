@@ -14,7 +14,7 @@ Usage:
 * For helpers:
   * home-assistant/core native test: `from tests.common import MockConfigEntry`
   * custom component test: `from pytest_homeassistant_custom_component.common import MockConfigEntry`
-* If your integration is inside a custom components folder, a `custom_components/__init__.py` file or changes to `sys.path` may be required.
+* If your integration is inside a `custom_components` folder, a `custom_components/__init__.py` file or changes to `sys.path` may be required.
 * See [list of custom components](https://github.com/MatthewFlamm/pytest-homeassistant-custom-component/network/dependents) as examples that use this package.
 * Also see tests for `simple_integration` in this repository.
 

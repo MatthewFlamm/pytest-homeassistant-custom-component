@@ -2,7 +2,11 @@ name: Make Release
 
 on:
   workflow_dispatch:
-
+    inputs:
+      type:
+        description: 'Tyoe of version to increment. major, minor, or patch.'
+        required: true
+        default: 'patch'
 jobs:
   make_release:
     runs-on: "ubuntu-latest"

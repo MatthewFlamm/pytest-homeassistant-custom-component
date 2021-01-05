@@ -90,7 +90,7 @@ for f in pathlib.Path(PACKAGE_DIR).rglob("*.py"):
     with open(f, "w") as new_file:
         new_file.write("".join([new_docstring, body]))
 
-added_text = "# This file is from homeassistant/core.\n"
+added_text = "# This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.\n"
 
 with open(REQUIREMENTS_FILE, "r") as original_file:
     data = original_file.readlines()
@@ -106,6 +106,7 @@ for d in data:
         removed_data.append(d)
 
 new_data.insert(0, added_text)
+removed_data.insert(0, added_text)
 
 with open(REQUIREMENTS_FILE, "w") as new_file:
     new_file.writelines(new_data)

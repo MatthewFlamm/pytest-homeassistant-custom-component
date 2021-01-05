@@ -15,7 +15,6 @@ diff = "git diff --exit-code"
 
 files = [
     "__init__.py",
-    "async_mock.py",
     "common.py",
     "conftest.py",
     "ignore_uncaught_exceptions.py",

@@ -16,7 +16,7 @@ jobs:
         uses: zwaldowski/semver-release-action@v2
         with:
           dry_run: true
-          bump: patch
+          bump: ${{ github.event.inputs.name }}
           github_token: ${{ secrets.REPO_SCOPED_TOKEN }}
       - run: echo "${{ steps.next_version.outputs.version }}" > version
       - run: echo "${{ steps.next_version.outputs.version }}"

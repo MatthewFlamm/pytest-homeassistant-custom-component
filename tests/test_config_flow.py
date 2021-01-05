@@ -1,8 +1,10 @@
 """Test the Simple Integration config flow."""
+from unittest.mock import patch
+
 from homeassistant import config_entries, setup
 from custom_components.simple_integration.const import DOMAIN
 
-from pytest_homeassistant_custom_component.async_mock import patch
+
 
 
 async def test_form(hass):

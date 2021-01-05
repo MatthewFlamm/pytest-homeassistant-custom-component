@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       type:
-        description: 'Tyoe of version to increment. major, minor, or patch.'
+        description: 'Type of version to increment. major, minor, or patch.'
         required: true
         default: 'patch'
 jobs:
@@ -16,7 +16,7 @@ jobs:
         uses: zwaldowski/semver-release-action@v2
         with:
           dry_run: true
-          bump: ${{ github.event.inputs.name }}
+          bump: ${{ github.event.inputs.type }}
           github_token: ${{ secrets.REPO_SCOPED_TOKEN }}
       - run: echo "${{ steps.next_version.outputs.version }}" > version
       - run: echo "${{ steps.next_version.outputs.version }}"

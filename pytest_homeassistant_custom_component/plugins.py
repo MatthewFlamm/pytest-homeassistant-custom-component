@@ -9,6 +9,7 @@ import functools
 import logging
 import ssl
 import threading
+from unittest.mock import MagicMock, patch
 
 from aiohttp.test_utils import make_mocked_request
 import multidict
@@ -31,7 +32,6 @@ from homeassistant.helpers import config_entry_oauth2_flow, event
 from homeassistant.setup import async_setup_component
 from homeassistant.util import location
 
-from .async_mock import MagicMock, patch
 from .ignore_uncaught_exceptions import IGNORE_UNCAUGHT_EXCEPTIONS
 
 pytest.register_assert_rewrite(".common")

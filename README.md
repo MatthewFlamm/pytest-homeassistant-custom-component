@@ -6,7 +6,7 @@ Package to automatically extract testing plugins from Home Assistant for custom 
 Automatic extraction of testing plugins and helpers.
 The goal is to provide the same functionality as the tests in home-assistant/core.
 
-* For now, the package will be updated _approximately_ weekly.
+* For now, the package will be updated _approximately_ biweekly.
 * Version of home-assistant/core is given in `pytest_homeassistant_custom_component.const` and in the README above
 
 Usage:

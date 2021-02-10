@@ -129,3 +129,20 @@ with open("README.md", "w") as new_file:
     new_file.write("".join(data))
 
 print(f"Version: {__version__}")
+
+
+# modify load_fixture
+with open(os.path.join(PACKAGE_DIR, "common.py"), "r") as original_file:
+    data = original_file.readlines()
+
+import_time_lineno = [i for i, line in enumerate(data) if "from time" in line]
+assert len(import_time_lineno) == 1
+data.insert(import_time_lineno[0] + 1, "import traceback\n")
+
+load_fixture_lineno = [i for i, line in enumerate(data) if "load_fixture" in line]
+assert len(load_fixture_lineno) == 1
+data.insert(load_fixture_lineno[0] + 2, "    start_path = traceback.extract_stack()[-2].filename\n")
+data[load_fixture_lineno[0] + 3] = data[load_fixture_lineno[0] + 3].replace("__file__", "start_path")
+
+with open(os.path.join(PACKAGE_DIR, "common.py"), "w") as new_file:
+    new_file.writelines(data)

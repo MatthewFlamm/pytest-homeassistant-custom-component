@@ -17,6 +17,7 @@ import pathlib
 import threading
 import time
 from time import monotonic
+import traceback
 import types
 from typing import Any, Awaitable, Collection, Optional
 from unittest.mock import AsyncMock, Mock, patch
@@ -399,7 +400,8 @@ def async_fire_service_discovered(hass, service, info):
 
 def load_fixture(filename):
     """Load a fixture."""
-    path = os.path.join(os.path.dirname(__file__), "fixtures", filename)
+    start_path = traceback.extract_stack()[-2].filename
+    path = os.path.join(os.path.dirname(start_path), "fixtures", filename)
     with open(path, encoding="utf-8") as fptr:
         return fptr.read()
 

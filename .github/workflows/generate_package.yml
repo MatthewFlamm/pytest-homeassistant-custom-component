@@ -16,6 +16,8 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
+      - name: inatall dependencies
+        run: pip install -r requirements_generate.py
       - name: execute generate package
         run: python generate_phacc/generate_phacc.py
       - name: Create Pull Request

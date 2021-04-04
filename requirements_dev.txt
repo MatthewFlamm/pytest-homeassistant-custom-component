@@ -1,6 +1,6 @@
 # This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
 codecov==2.1.10
 mypy==0.812
-pre-commit==2.10.1
-pylint==2.7.2
-astroid==2.5.1
+pre-commit==2.11.1
+pylint==2.7.4
+astroid==2.5.2

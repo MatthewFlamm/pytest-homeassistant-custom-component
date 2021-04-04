@@ -3,7 +3,6 @@ import os
 from setuptools import setup, find_packages
 
 requirements = [
-    "homeassistant",
     "sqlalchemy",
 ]
 with open("requirements_test.txt","r") as f:

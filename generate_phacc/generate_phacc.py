@@ -4,41 +4,18 @@ import pathlib
 import shutil
 import os
 
-TMP_DIR = "tmp_dir"
-PACKAGE_DIR = "pytest_homeassistant_custom_component"
-REQUIREMENTS_FILE = "requirements_test.txt"
-CONST_FILE = "const.py"
+import git
 
-REQUIREMENTS_FILE_DEV = "requirements_dev.txt"
+from ha import prepare_homeassistant
+from const import TMP_DIR, PACKAGE_DIR, REQUIREMENTS_FILE, CONST_FILE, REQUIREMENTS_FILE_DEV, path, files, requirements_remove
 
-path = "."
-clone = "git clone --depth=1 https://github.com/home-assistant/core.git tmp_dir"
-diff = "git diff --exit-code"
-
-files = [
-    "__init__.py",
-    "common.py",
-    "conftest.py",
-    "ignore_uncaught_exceptions.py",
-]
-
-# remove rrquirements for development only, i.e not related to homeassistant tests
-requirements_remove = [
-    "codecov",
-    "mypy",
-    "pre-commit",
-    "pylint",
-    "astroid",
-]
-
-if os.path.isdir(TMP_DIR):
-    shutil.rmtree(TMP_DIR)
 if os.path.isdir(PACKAGE_DIR):
     shutil.rmtree(PACKAGE_DIR)
 if os.path.isfile(REQUIREMENTS_FILE):
     os.remove(REQUIREMENTS_FILE)
 
-os.system(clone)  # Cloning
+ha_version = prepare_homeassistant()
+
 os.mkdir(PACKAGE_DIR)
 os.mkdir(os.path.join(PACKAGE_DIR, "test_util"))
 shutil.copy2(os.path.join(TMP_DIR, REQUIREMENTS_FILE), REQUIREMENTS_FILE)
@@ -68,7 +45,6 @@ for f in files:
     with open(filename, "w") as file:
         file.write(filedata)
 
-shutil.rmtree(TMP_DIR)
 os.rename(
     os.path.join(PACKAGE_DIR, "conftest.py"), os.path.join(PACKAGE_DIR, "plugins.py")
 )
@@ -104,7 +80,7 @@ for d in data:
         new_data.append(d)
     else:
         removed_data.append(d)
-
+new_data.append(f"homeassistant=={ha_version}\n")
 new_data.insert(0, added_text)
 removed_data.insert(0, added_text)
 
@@ -113,8 +89,6 @@ with open(REQUIREMENTS_FILE, "w") as new_file:
 
 with open(REQUIREMENTS_FILE_DEV, "w") as new_file:
     new_file.writelines(removed_data)
-
-diff_files = os.system(diff)
 
 from pytest_homeassistant_custom_component.const import __version__
 

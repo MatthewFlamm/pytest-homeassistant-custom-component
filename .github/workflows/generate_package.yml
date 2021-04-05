@@ -19,7 +19,10 @@ jobs:
       - name: inatall dependencies
         run: pip install -r requirements_generate.txt
       - name: execute generate package
-        run: python generate_phacc/generate_phacc.py
+        run: |
+          ls -l .
+          python generate_phacc/generate_phacc.py
+          ls -l .
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:

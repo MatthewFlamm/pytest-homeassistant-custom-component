@@ -22,7 +22,7 @@ jobs:
         run: |
           ls -l .
           pwd
-          PYTHONPATH=$(pwd)
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
           echo $PYTHONPATH
           python generate_phacc/generate_phacc.py
           ls -l .

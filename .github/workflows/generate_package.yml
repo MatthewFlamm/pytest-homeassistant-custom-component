@@ -21,6 +21,8 @@ jobs:
       - name: execute generate package
         run: |
           ls -l .
+          pwd
+          echo $PYTHONPATH
           python generate_phacc/generate_phacc.py
           ls -l .
       - name: Create Pull Request

@@ -17,7 +17,7 @@ jobs:
         with:
           python-version: 3.8
       - name: inatall dependencies
-        run: pip install -r requirements_generate.py
+        run: pip install -r requirements_generate.txt
       - name: execute generate package
         run: python generate_phacc/generate_phacc.py
       - name: Create Pull Request

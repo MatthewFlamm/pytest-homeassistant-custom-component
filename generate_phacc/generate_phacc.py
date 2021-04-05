@@ -7,7 +7,7 @@ import os
 import git
 
 from ha import prepare_homeassistant
-from const import TMP_DIR, PACKAGE_DIR, REQUIREMENTS_FILE, CONST_FILE, REQUIREMENTS_FILE_DEV, path, files, requirements_remove
+from const import TMP_DIR, PACKAGE_DIR, REQUIREMENTS_FILE, CONST_FILE, REQUIREMENTS_FILE_DEV, LICENSE_FILE_HA, LICENSE_FILE_NEW, path, files, requirements_remove
 
 
 if os.path.isdir(PACKAGE_DIR):
@@ -31,6 +31,10 @@ shutil.copy2(
 shutil.copy2(
     os.path.join(TMP_DIR, "tests", "test_util", "__init__.py"),
     os.path.join(PACKAGE_DIR, "test_util", "__init__.py"),
+)
+shutil.copy2(
+    os.path.join(TMP_DIR, LICENSE_FILE_HA),
+    LICENSE_FILE_NEW,
 )
 
 for f in files:

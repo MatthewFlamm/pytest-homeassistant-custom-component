@@ -10,10 +10,6 @@ from ha import prepare_homeassistant
 from const import TMP_DIR, PACKAGE_DIR, REQUIREMENTS_FILE, CONST_FILE, REQUIREMENTS_FILE_DEV, path, files, requirements_remove
 
 
-import sys
-for path in sys.path:
-    print(path)
-
 if os.path.isdir(PACKAGE_DIR):
     shutil.rmtree(PACKAGE_DIR)
 if os.path.isfile(REQUIREMENTS_FILE):

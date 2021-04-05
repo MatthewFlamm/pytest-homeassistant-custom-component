@@ -16,16 +16,12 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - name: inatall dependencies
+      - name: install dependencies
         run: pip install -r requirements_generate.txt
       - name: execute generate package
         run: |
-          ls -l .
-          pwd
           export PYTHONPATH=$PYTHONPATH:$(pwd)
-          echo $PYTHONPATH
           python generate_phacc/generate_phacc.py
-          ls -l .
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:

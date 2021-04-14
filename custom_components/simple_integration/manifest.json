@@ -3,6 +3,7 @@
   "name": "Simple Integration",
   "config_flow": true,
   "documentation": "NoWhere",
+  "version": "0.0.0",
   "codeowners": [
     "@NoOne"
   ]

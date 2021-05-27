@@ -57,7 +57,7 @@ os.rename(
 with open(os.path.join(PACKAGE_DIR, CONST_FILE), "r") as original_file:
     data = original_file.readlines()
 with open(os.path.join(PACKAGE_DIR, CONST_FILE), "w") as new_file:
-    new_file.write("".join(data[0:6]))
+    new_file.write("".join(data[0:10]))
 
 added_text = "This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.\n"
 triple_quote = '"""\n'

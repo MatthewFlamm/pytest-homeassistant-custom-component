@@ -4,7 +4,7 @@ from pytest_homeassistant_custom_component.common import MockConfigEntry
 from custom_components.simple_integration.const import DOMAIN
 
 
-async def test_sensor(hass, enable_custom_integrations):
+async def test_sensor(hass):
     """Test sensor."""
     entry = MockConfigEntry(domain=DOMAIN, data={"name": "simple config",})
     entry.add_to_hass(hass)

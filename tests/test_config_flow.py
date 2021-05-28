@@ -5,7 +5,7 @@ from homeassistant import config_entries, setup
 from custom_components.simple_integration.const import DOMAIN
 
 
-async def test_form(hass, enable_custom_integrations):
+async def test_form(hass):
     """Test we get the form."""
     await setup.async_setup_component(hass, "persistent_notification", {})
     result = await hass.config_entries.flow.async_init(

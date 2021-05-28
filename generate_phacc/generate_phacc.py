@@ -99,6 +99,8 @@ def find_sqlalchemy(data):
 with open(os.path.join(TMP_DIR, "requirements_all.txt"), "r") as f:
     data = f.readlines()
 sqlalchemy = find_sqlalchemy(data)
+if not "\n" == sqlalchemy[-2:]:
+    sqlalchemy = f"{sqlalchemy}\n"
 new_data.append(sqlalchemy)
 
 removed_data.insert(0, added_text)

@@ -24,3 +24,4 @@ stdlib-list==0.7.0
 tqdm==4.49.0
 homeassistant==2021.6.0b0
 sqlalchemy==1.4.13
+

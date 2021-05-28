@@ -11,7 +11,7 @@ The goal is to provide the same functionality as the tests in home-assistant/cor
   * home-assistant/core native test: `from tests.common import MockConfigEntry`
   * custom component test: `from pytest_homeassistant_custom_component.common import MockConfigEntry`
 * If your integration is inside a `custom_components` folder, a `custom_components/__init__.py` file or changes to `sys.path` may be required.
-* `enable_custom_integrations_fixture` is required (versions >=2021.6.0b0)
+* `enable_custom_integrations` fixture is required (versions >=2021.6.0b0)
 * If using `load_fixture`, the files need to be in a `fixtures` folder colocated with the tests. For example, a test in `test_sensor.py` can load data from `some_data.json` using `load_fixture` from this structure:
 
 ```
@@ -34,5 +34,6 @@ To keep the releases up to date, a PR is automatically generated with new change
 After manually merging the PR, a second action is manually run to bump the version, make a release, and upload to PyPI.
 
 * Version of home-assistant/core (dev branch) is given in `pytest_homeassistant_custom_component.const` and in the README above.
+* This package is generated against published releases of homeassistant. The goal is to have at least one release of this package per beta cycle of homeassistant.
 
 This package was inspired by [pytest-homeassistant](https://github.com/boralyl/pytest-homeassistant) by @boralyl, but is intended to more closely and automatically track the home-assistant/core library.

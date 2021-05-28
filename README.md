@@ -11,6 +11,7 @@ The goal is to provide the same functionality as the tests in home-assistant/cor
   * home-assistant/core native test: `from tests.common import MockConfigEntry`
   * custom component test: `from pytest_homeassistant_custom_component.common import MockConfigEntry`
 * If your integration is inside a `custom_components` folder, a `custom_components/__init__.py` file or changes to `sys.path` may be required.
+* `enable_custom_integrations_fixture` is required (versions >=2021.6.0b0)
 * If using `load_fixture`, the files need to be in a `fixtures` folder colocated with the tests. For example, a test in `test_sensor.py` can load data from `some_data.json` using `load_fixture` from this structure:
 
 ```

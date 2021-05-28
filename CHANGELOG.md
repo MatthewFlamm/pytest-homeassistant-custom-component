@@ -3,6 +3,10 @@ This changelog only includes changes directly related to the structure of this p
 
 Changes to minor version indicate a change structurally in this pacakge.  Changes in patch indicate changes solely from homeassistant/core. The latter does not imply no breaking changes are introduced.
 
+## 0.4.0
+* `enable_custom_integrations` now required by ha
+* sqlalchemy version now pinned to ha version
+
 ## 0.3.0
 * Generate package only on homeassistant release versions
   * Use latest homeassistant release version including beta

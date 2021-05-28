@@ -11,6 +11,7 @@ The goal is to provide the same functionality as the tests in home-assistant/cor
   * home-assistant/core native test: `from tests.common import MockConfigEntry`
   * custom component test: `from pytest_homeassistant_custom_component.common import MockConfigEntry`
 * If your integration is inside a `custom_components` folder, a `custom_components/__init__.py` file or changes to `sys.path` may be required.
+* `enable_custom_integrations_fixture` is required (versions >=2021.6.0b0)
 * If using `load_fixture`, the files need to be in a `fixtures` folder colocated with the tests. For example, a test in `test_sensor.py` can load data from `some_data.json` using `load_fixture` from this structure:
 
 ```
@@ -21,7 +22,7 @@ tests/
 ```
 
 ## Examples:
-* See [list of custom components](https://github.com/MatthewFlamm/pytest-homeassistant-custom-component/network/dependents) as examples that use this package.
+* See [list of custom components](https://github.com/MatthewFlamm/pytes)t-homeassistant-custom-component/network/dependents) as examples that use this package.
 * Also see tests for `simple_integration` in this repository.
 * Use [integration-blueprint](https://github.com/custom-components/integration_blueprint) as a template to create your custom component. A basic test suite is already implemented.
 * Use [cookiecutter-homeassistant-custom-component](https://github.com/oncleben31/cookiecutter-homeassistant-custom-component) to create a custom component similar to integration_blueprint but customized for you by using [cookiecutter](https://github.com/cookiecutter/cookiecutter).

@@ -75,7 +75,7 @@ added_text = "# This file is originally from homeassistant/core and modified by 
 
 with open(REQUIREMENTS_FILE, "r") as original_file:
     data = original_file.readlines()
-
+    
 new_data = []
 removed_data = []
 for d in data:
@@ -87,6 +87,20 @@ for d in data:
         removed_data.append(d)
 new_data.append(f"homeassistant=={ha_version}\n")
 new_data.insert(0, added_text)
+
+
+def find_sqlalchemy(data):
+    for d in data:
+        if "sqlalchemy" in d:
+            return d
+    raise ValueError("could not find sqlalchemy")
+
+
+with open(os.path.join(TMP_DIR, "requirements_all.txt"), "r") as f:
+    data = f.readlines()
+sqlalchemy = find_sqlalchemy(data)
+new_data.append(sqlalchemy)
+
 removed_data.insert(0, added_text)
 
 with open(REQUIREMENTS_FILE, "w") as new_file:

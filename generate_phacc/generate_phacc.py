@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 import pathlib
+import re
 import shutil
 import os
 
@@ -75,13 +76,27 @@ added_text = "# This file is originally from homeassistant/core and modified by 
 
 with open(REQUIREMENTS_FILE, "r") as original_file:
     data = original_file.readlines()
-    
+
+
+def is_test_requirement(requirement):
+    # if ==  not in d this is either a comment or unkown package, include
+    if "==" not in requirement:
+        return True
+
+    regex = re.compile('types-.+')
+    if re.match(regex, requirement):
+        return False
+
+    if d.split("==")[0] in requirements_remove:
+        return False
+
+    return True
+
+
 new_data = []
 removed_data = []
 for d in data:
-    if "==" not in d:
-        new_data.append(d)
-    elif d.split("==")[0] not in requirements_remove:
+    if is_test_requirement(d):
         new_data.append(d)
     else:
         removed_data.append(d)

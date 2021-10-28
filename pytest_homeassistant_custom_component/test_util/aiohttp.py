@@ -5,6 +5,7 @@ This file is originally from homeassistant/core and modified by pytest-homeassis
 """
 import asyncio
 from contextlib import contextmanager
+from http import HTTPStatus
 import json as _json
 import re
 from unittest import mock
@@ -45,7 +46,7 @@ class AiohttpClientMocker:
         url,
         *,
         auth=None,
-        status=200,
+        status=HTTPStatus.OK,
         text=None,
         data=None,
         content=None,
@@ -161,7 +162,7 @@ class AiohttpClientMockResponse:
         self,
         method,
         url,
-        status=200,
+        status=HTTPStatus.OK,
         response=None,
         json=None,
         text=None,

@@ -5,6 +5,12 @@ This file is originally from homeassistant/core and modified by pytest-homeassis
 """
 IGNORE_UNCAUGHT_EXCEPTIONS = [
     (
+        # This test explicitly throws an uncaught exception
+        # and should not be removed.
+        ".test_runner",
+        "test_unhandled_exception_traceback",
+    ),
+    (
         "test_homeassistant_bridge",
         "test_homeassistant_bridge_fan_setup",
     ),

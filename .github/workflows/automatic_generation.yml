@@ -1,8 +1,9 @@
 name: Generate Package
 
 on:
-  schedule:
-    - cron: "0 5 * * *"
+  # uncomment when it becomes ready
+  # schedule:
+  #   - cron: "0 5 * * *"
   workflow_dispatch:
 
 jobs:

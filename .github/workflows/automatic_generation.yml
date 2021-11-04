@@ -1,0 +1,30 @@
+name: Generate Package
+
+on:
+  schedule:
+    - cron: "0 5 * * *"
+  workflow_dispatch:
+
+jobs:
+  generate_package:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v2"
+      - name: checkout repo content
+        uses: actions/checkout@v2
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: install dependencies
+        run: pip install -r requirements_generate.txt
+      - name: execute generate package
+        run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          python generate_phacc/generate_phacc.py
+      - name: publish artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: generated-package
+          path: ~/pytest_homeassistant_custom_component/
+          if-no-files-found: error

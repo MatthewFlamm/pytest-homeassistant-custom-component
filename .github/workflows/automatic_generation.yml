@@ -30,7 +30,7 @@ jobs:
           path: ./
           if-no-files-found: error
   test:
-    needs: generate_package:
+    needs: generate_package
     runs-on: "ubuntu-latest"
     steps:
       - name: checkout repo content

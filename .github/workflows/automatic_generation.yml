@@ -28,5 +28,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: generated-package
-          path: ~/pytest_homeassistant_custom_component/
+          path: pytest_homeassistant_custom_component/
           if-no-files-found: error

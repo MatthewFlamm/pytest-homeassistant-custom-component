@@ -1,4 +1,4 @@
-name: Generate Package
+name: Automatic Generate
 
 on:
   # uncomment when it becomes ready

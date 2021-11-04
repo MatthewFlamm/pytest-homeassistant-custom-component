@@ -23,10 +23,21 @@ jobs:
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)
           python generate_phacc/generate_phacc.py
-          ls -aR
       - name: publish artifact
         uses: actions/upload-artifact@v2
         with:
           name: generated-package
-          path: pytest_homeassistant_custom_component/
+          path: ./
           if-no-files-found: error
+  test:
+    needs: generate_package:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2
+      - name: download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: generated-package
+      - run: cat README.md
+          

@@ -23,6 +23,7 @@ jobs:
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)
           python generate_phacc/generate_phacc.py
+          ls -aR
       - name: publish artifact
         uses: actions/upload-artifact@v2
         with:

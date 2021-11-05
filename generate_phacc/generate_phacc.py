@@ -166,5 +166,7 @@ def process_files():
 
 if ha_version != current_version:
     process_files()
+    with open(HA_VERSION_FILE, 'w') as f:
+        f.write(ha_version)
 else:
     print("Already up to date")

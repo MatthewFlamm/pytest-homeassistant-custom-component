@@ -60,6 +60,7 @@ jobs:
         run: |
           pytest
   make_release:
+    needs: [generate_package, test]
     runs-on: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v2

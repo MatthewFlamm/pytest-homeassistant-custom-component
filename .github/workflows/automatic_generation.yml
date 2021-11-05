@@ -38,7 +38,7 @@ jobs:
           if [[ "${{ steps.current-ha-version.outputs.current-ha-version}}" == "${{ steps.new-ha-version.outputs.new-ha-version }}" ]]; then
             echo "::set-output name=need-to-release::false"
           else
-            echo "::set-output name=need-to-release::true"
+            echo "::set-output name=need-to-release::false"  # temporary CHANGE THIS BACK TO TRUE
           fi
       - name: list files
         run: ls -a

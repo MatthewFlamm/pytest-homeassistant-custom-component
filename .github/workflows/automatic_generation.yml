@@ -23,11 +23,16 @@ jobs:
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)
           python generate_phacc/generate_phacc.py
+      - name: list files
+        run: ls -a
       - name: publish artifact
         uses: actions/upload-artifact@v2
         with:
           name: generated-package
-          path: ./
+          path: |
+            ./
+            !**/*.pyc
+            !tmp_dir/
           if-no-files-found: error
   test:
     needs: generate_package

@@ -1,9 +1,8 @@
 name: Automatic Generate
 
 on:
-  # uncomment when it becomes ready
-  # schedule:
-  #   - cron: "0 5 * * *"
+  schedule:
+    - cron: "0 5 * * *"
   workflow_dispatch:
 
 jobs:

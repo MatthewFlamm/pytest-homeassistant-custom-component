@@ -55,6 +55,7 @@ jobs:
   test:
     needs: generate_package
     runs-on: "ubuntu-latest"
+    if: ${{ needs.generate_package.outputs.need_to_release }}
     strategy:
       matrix:
         python-version: [3.8, 3.9]

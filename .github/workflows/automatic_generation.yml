@@ -38,7 +38,7 @@ jobs:
           if [[ "${{ steps.current-ha-version.outputs.current-ha-version}}" == "${{ steps.new-ha-version.outputs.new-ha-version }}" ]]; then
             echo "::set-output name=need-to-release::false"
           else
-            echo "::set-output name=need-to-release::false"  # temporary CHANGE THIS BACK TO TRUE
+            echo "::set-output name=need-to-release::true"
           fi
       - name: list files
         run: ls -a
@@ -79,7 +79,7 @@ jobs:
   make_release:
     needs: [generate_package, test]
     runs-on: "ubuntu-latest"
-    if: needs.generate_package.outputs.need_to_release == 'true'
+    if: ${{ needs.generate_package.outputs.need_to_release }}
     steps:
       - uses: actions/checkout@v2
       - name: download artifact

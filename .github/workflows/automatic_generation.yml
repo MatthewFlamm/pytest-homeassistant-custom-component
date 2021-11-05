@@ -79,6 +79,7 @@ jobs:
   make_release:
     needs: [generate_package, test]
     runs-on: "ubuntu-latest"
+    if: ${{ needs.generate_package.outputs.need_to_release }}
     steps:
       - uses: actions/checkout@v2
       - name: download artifact

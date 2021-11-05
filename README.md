@@ -4,6 +4,7 @@
 
 Package to automatically extract testing plugins from Home Assistant for custom component testing.
 The goal is to provide the same functionality as the tests in home-assistant/core.
+pytest-homeassistant-custom-component is updated daily according to the latest homeassistant release including beta.
 
 ## Usage:
 * All pytest fixtures can be used as normal, like `hass`
@@ -29,11 +30,15 @@ tests/
 * The [github-custom-component-tutorial](https://github.com/boralyl/github-custom-component-tutorial) explaining in details how to create a custom componenent with a test suite using this package.
 
 ## More Info
-This repository is set up to be nearly automatic with the goal of being fully automatic.
-To keep the releases up to date, a PR is automatically generated with new changes biweekly.
-After manually merging the PR, a second action is manually run to bump the version, make a release, and upload to PyPI.
+This repository is set up to be nearly fully automatic.
 
-* Version of home-assistant/core (dev branch) is given in `pytest_homeassistant_custom_component.const` and in the README above.
-* This package is generated against published releases of homeassistant. The goal is to have at least one release of this package per beta cycle of homeassistant.
+* Version of home-assistant/core is given in `ha_version`, `pytest_homeassistant_custom_component.const`, and in the README above.
+* This package is generated against published releases of homeassistant and updated daily.
+
+### Version Strategy
+* When changes in extraction are required, there will be a change in the minor version.
+* A change in the patch version indicates that it was an automatic update with a homeassistant version.
+* This enables tracking back to which versions of pytest-homeassistant-custom-component can be used for
+  extracting testing utilities from which version of homeassistant.
 
 This package was inspired by [pytest-homeassistant](https://github.com/boralyl/pytest-homeassistant) by @boralyl, but is intended to more closely and automatically track the home-assistant/core library.

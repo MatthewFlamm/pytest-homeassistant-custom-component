@@ -28,3 +28,5 @@ requirements_remove = [
 
 LICENSE_FILE_HA = "LICENSE.md"
 LICENSE_FILE_NEW = "LICENSE_HA_CORE.md"
+
+HA_VERSION_FILE = "ha_version"

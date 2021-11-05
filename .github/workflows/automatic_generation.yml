@@ -9,10 +9,16 @@ on:
 jobs:
   generate_package:
     runs-on: "ubuntu-latest"
+    outputs:
+      current_ha_version: ${{ steps.current-ha-version.outputs.current-ha-version }}
+      new_ha_version: ${{ steps.new-ha-version.outputs.new-ha-version }}
+      need_to_release: ${{ steps.need-to-release.outputs.need-to-release }}
     steps:
-      - uses: "actions/checkout@v2"
       - name: checkout repo content
         uses: actions/checkout@v2
+      - name: store current ha version
+        id: current-ha-version
+        run: echo "::set-output name=current-ha-version::$(cat ha_version)"
       - name: setup python
         uses: actions/setup-python@v2
         with:
@@ -23,9 +29,109 @@ jobs:
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)
           python generate_phacc/generate_phacc.py
+      - name: store new ha version
+        id: new-ha-version
+        run: echo "::set-output name=new-ha-version::$(cat ha_version)"
+      - name: check need to release
+        id: need-to-release
+        run: |
+          if [[ "${{ steps.current-ha-version.outputs.current-ha-version}}" == "${{ steps.new-ha-version.outputs.new-ha-version }}" ]]; then
+            echo "::set-output name=need-to-release::false"
+          else
+            echo "::set-output name=need-to-release::true"
+          fi
+      - name: list files
+        run: ls -a
       - name: publish artifact
         uses: actions/upload-artifact@v2
         with:
           name: generated-package
-          path: ~/pytest_homeassistant_custom_component/
+          path: |
+            ./
+            !**/*.pyc
+            !tmp_dir/
+            !.git/
           if-no-files-found: error
+  test:
+    needs: generate_package
+    runs-on: "ubuntu-latest"
+    if: ${{ needs.generate_package.outputs.need_to_release }}
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9]
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2
+      - name: download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: generated-package
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+      - name: Test with pytest
+        run: |
+          pytest
+  make_release:
+    needs: [generate_package, test]
+    runs-on: "ubuntu-latest"
+    if: ${{ needs.generate_package.outputs.need_to_release }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: generated-package
+      - name: need_to_release_print
+        run: "echo ${{ needs.generate_package.outputs.need_to_release }}"
+      - id: next_version
+        uses: zwaldowski/semver-release-action@v2
+        with:
+          dry_run: true
+          bump: patch
+          github_token: ${{ secrets.REPO_SCOPED_TOKEN }}
+      - run: echo "${{ steps.next_version.outputs.version }}" > version
+      - run: echo "${{ steps.next_version.outputs.version }}"
+      - run: |
+          git config user.name 'Matthew Flamm'
+          git config user.email 'MatthewFlamm@users.noreply.github.com'
+          git add .
+          git commit -m "Bump version"
+          git push
+          echo "sha=$(git rev-parse HEAD)" >> $GITHUB_ENV
+      - uses: zwaldowski/semver-release-action@v2
+        with:
+          github_token: ${{ secrets.REPO_SCOPED_TOKEN }}
+          sha: ${{ steps.git_commit.outputs.sha }}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_SCOPED_TOKEN }}
+        with:
+          tag_name: ${{ steps.next_version.outputs.version }}
+          release_name: Release ${{ steps.next_version.outputs.version }}
+          body: |
+            Automatic release
+          draft: false
+          prerelease: false
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install setuptools wheel twine
+      - name: Build and publish
+        env:
+          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: |
+          python setup.py sdist bdist_wheel
+          twine upload dist/*

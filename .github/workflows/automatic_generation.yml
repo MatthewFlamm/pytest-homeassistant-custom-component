@@ -54,7 +54,7 @@ jobs:
   test:
     needs: generate_package
     runs-on: "ubuntu-latest"
-    if: ${{ needs.generate_package.outputs.need_to_release }}
+    if: needs.generate_package.outputs.need_to_release == 'true'
     strategy:
       matrix:
         python-version: [3.8, 3.9]
@@ -79,7 +79,7 @@ jobs:
   make_release:
     needs: [generate_package, test]
     runs-on: "ubuntu-latest"
-    if: ${{ needs.generate_package.outputs.need_to_release }}
+    if: needs.generate_package.outputs.need_to_release == 'true'
     steps:
       - uses: actions/checkout@v2
       - name: download artifact

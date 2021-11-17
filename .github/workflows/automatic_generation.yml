@@ -117,6 +117,7 @@ jobs:
           release_name: Release ${{ steps.next_version.outputs.version }}
           body: |
             Automatic release
+            homeassistant version: ${{ needs.generate_package.outputs.new_ha_version }}
           draft: false
           prerelease: false
       - name: Set up Python

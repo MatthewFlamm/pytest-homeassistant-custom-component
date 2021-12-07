@@ -10,8 +10,6 @@ on:
 jobs:
   make_release:
     runs-on: "ubuntu-latest"
-    outputs:
-      current_ha_version: ${{ steps.current-ha-version.outputs.current-ha-version }}
     steps:
       - uses: actions/checkout@v2
       - name: store current ha version
@@ -46,7 +44,7 @@ jobs:
           release_name: Release ${{ steps.next_version.outputs.version }}
           body: |
             Automatic release
-            homeassistant version: ${{ needs.generate_package.outputs.current_ha_version }}
+            homeassistant version: ${{ steps.current-ha-version.outputs.current-ha-version }}
           draft: false
           prerelease: false
       - name: Set up Python

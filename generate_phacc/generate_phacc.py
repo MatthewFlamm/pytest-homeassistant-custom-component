@@ -64,8 +64,10 @@ def process_files():
 
     with open(os.path.join(PACKAGE_DIR, CONST_FILE), "r") as original_file:
         data = original_file.readlines()
+    data = [d for d in data[:14] if "from homeassistant." not in d]
+
     with open(os.path.join(PACKAGE_DIR, CONST_FILE), "w") as new_file:
-        new_file.write("".join(data[0:10]))
+        new_file.write("".join(data))
 
     added_text = "This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.\n"
     triple_quote = '"""\n'
@@ -156,10 +158,11 @@ def process_files():
     assert len(import_time_lineno) == 1
     data.insert(import_time_lineno[0] + 1, "import traceback\n")
 
-    load_fixture_lineno = [i for i, line in enumerate(data) if "load_fixture" in line]
-    assert len(load_fixture_lineno) == 1
-    data.insert(load_fixture_lineno[0] + 2, "    start_path = traceback.extract_stack()[-2].filename\n")
-    data[load_fixture_lineno[0] + 3] = data[load_fixture_lineno[0] + 3].replace("__file__", "start_path")
+    fixture_path_lineno = [i for i, line in enumerate(data) if "def get_fixture_path" in line]
+    assert len(fixture_path_lineno) == 1
+    data.insert(fixture_path_lineno[0] + 2, "    start_path = traceback.extract_stack()[-3].filename\n")
+    data[fixture_path_lineno[0] + 7] = data[fixture_path_lineno[0] + 7].replace("__file__", "start_path")
+    data[fixture_path_lineno[0] + 9] = data[fixture_path_lineno[0] + 9].replace("__file__", "start_path")
 
     with open(os.path.join(PACKAGE_DIR, "common.py"), "w") as new_file:
         new_file.writelines(data)

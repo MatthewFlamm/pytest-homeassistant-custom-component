@@ -103,7 +103,6 @@ jobs:
           git add .
           git commit -m "Bump version"
           git push
-          echo "sha=$(git rev-parse HEAD)" >> $GITHUB_ENV
           echo "::set-output name=sha::$(git rev-parse HEAD)"
       - uses: zwaldowski/semver-release-action@v2
         with:

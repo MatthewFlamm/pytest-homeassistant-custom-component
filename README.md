@@ -1,6 +1,6 @@
 # pytest-homeassistant-custom-component
 
-![HA core version](https://img.shields.io/static/v1?label=HA+core+version&message=2021.12.4&labelColor=blue)
+![HA core version](https://img.shields.io/static/v1?label=HA+core+version&message=2021.12.5&labelColor=blue)
 
 Package to automatically extract testing plugins from Home Assistant for custom component testing.
 The goal is to provide the same functionality as the tests in home-assistant/core.

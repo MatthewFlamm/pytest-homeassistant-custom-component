@@ -8,6 +8,7 @@ from __future__ import annotations
 import asyncio
 import collections
 from collections import OrderedDict
+from collections.abc import Awaitable, Collection
 from contextlib import contextmanager
 from datetime import datetime, timedelta
 import functools as ft
@@ -21,7 +22,7 @@ import time
 from time import monotonic
 import traceback
 import types
-from typing import Any, Awaitable, Collection
+from typing import Any
 from unittest.mock import AsyncMock, Mock, patch
 
 from aiohttp.test_utils import unused_port as get_test_instance_port  # noqa: F401
@@ -74,7 +75,9 @@ CLIENT_REDIRECT_URI = "https://example.com/app/callback"
 
 
 async def async_get_device_automations(
-    hass: HomeAssistant, automation_type: str, device_id: str
+    hass: HomeAssistant,
+    automation_type: device_automation.DeviceAutomationType,
+    device_id: str,
 ) -> Any:
     """Get a device automation for a single device id."""
     automations = await device_automation.async_get_device_automations(
@@ -289,7 +292,12 @@ async def async_test_home_assistant(loop, load_registries=True):
     hass.config.media_dirs = {"local": get_test_config_dir("media")}
     hass.config.skip_pip = True
 
-    hass.config_entries = config_entries.ConfigEntries(hass, {})
+    hass.config_entries = config_entries.ConfigEntries(
+        hass,
+        {
+            "_": "Not empty or else some bad checks for hass config in discovery.py breaks"
+        },
+    )
     hass.config_entries._entries = {}
     hass.config_entries._store._async_ensure_stop_listener = lambda: None
 
@@ -1059,8 +1067,9 @@ def mock_storage(data=None):
 
     def mock_write_data(store, path, data_to_write):
         """Mock version of write data."""
-        _LOGGER.info("Writing data to %s: %s", store.key, data_to_write)
         # To ensure that the data can be serialized
+        _LOGGER.info("Writing data to %s: %s", store.key, data_to_write)
+        raise_contains_mocks(data_to_write)
         data[store.key] = json.loads(json.dumps(data_to_write, cls=store._encoder))
 
     async def mock_remove(store):
@@ -1244,3 +1253,17 @@ def assert_lists_same(a, b):
     assert collections.Counter([hashdict(i) for i in a]) == collections.Counter(
         [hashdict(i) for i in b]
     )
+
+
+def raise_contains_mocks(val):
+    """Raise for mocks."""
+    if isinstance(val, Mock):
+        raise ValueError
+
+    if isinstance(val, dict):
+        for dict_value in val.values():
+            raise_contains_mocks(dict_value)
+
+    if isinstance(val, list):
+        for dict_value in val:
+            raise_contains_mocks(dict_value)

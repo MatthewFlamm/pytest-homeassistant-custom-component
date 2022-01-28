@@ -64,7 +64,7 @@ def process_files():
 
     with open(os.path.join(PACKAGE_DIR, CONST_FILE), "r") as original_file:
         data = original_file.readlines()
-    data = [d for d in data[:14] if "from homeassistant." not in d]
+    data = [d for d in data[:14] if "from .backports" not in d]
 
     with open(os.path.join(PACKAGE_DIR, CONST_FILE), "w") as new_file:
         new_file.write("".join(data))

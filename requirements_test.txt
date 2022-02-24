@@ -8,9 +8,8 @@
 
 -c homeassistant/package_constraints.txt
 -r requirements_test_pre_commit.txt
-coverage==6.2.0
+coverage==6.3.1
 freezegun==1.1.0
-jsonpickle==1.4.1
 mock-open==1.4.0
 pipdeptree==2.2.1
 pylint-strict-informational==0.1
@@ -22,12 +21,11 @@ pytest-test-groups==1.0.3
 pytest-sugar==0.9.4
 pytest-timeout==2.1.0
 pytest-xdist==2.4.0
-pytest==6.2.5
+pytest==7.0.1
 requests_mock==1.9.2
-responses==0.12.0
 respx==0.19.0
 stdlib-list==0.7.0
 tqdm==4.49.0
-homeassistant==2022.2.9
+homeassistant==2022.3.0b0
 sqlalchemy==1.4.27
 

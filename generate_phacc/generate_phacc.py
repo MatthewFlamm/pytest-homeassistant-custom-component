@@ -113,19 +113,24 @@ def process_files():
     new_data.insert(0, added_text)
 
 
-    def find_sqlalchemy(data):
+    def find_dependency(dependency, data):
         for d in data:
-            if "sqlalchemy" in d:
+            if dependency in d:
                 return d
-        raise ValueError("could not find sqlalchemy")
+        raise ValueError(f"could not find {dependency}")
 
-
+    
     with open(os.path.join(TMP_DIR, "requirements_all.txt"), "r") as f:
         data = f.readlines()
-    sqlalchemy = find_sqlalchemy(data)
-    if not "\n" == sqlalchemy[-2:]:
-        sqlalchemy = f"{sqlalchemy}\n"
-    new_data.append(sqlalchemy)
+    
+    def add_dependency(dependency, ha_data, new_data):
+        dep = find_dependency(dependency, data)
+        if not "\n" == dep[-2:]:
+            dep = f"{dep}\n"
+        new_data.append(dep)
+
+    add_dependency("sqlalchemy", data, new_data)
+    add_dependency("paho-mqtt", data, new_data)
 
     removed_data.insert(0, added_text)
 

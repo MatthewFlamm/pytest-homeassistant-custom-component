@@ -3,6 +3,9 @@ This changelog only includes changes directly related to the structure of this p
 
 Changes to minor version indicate a change structurally in this pacakge.  Changes in patch indicate changes solely from homeassistant/core. The latter does not imply no breaking changes are introduced.
 
+## 0.8.0
+* recorder dependencies required for tests
+
 ## 0.7.0
 * paho-mqtt now required for tests
 

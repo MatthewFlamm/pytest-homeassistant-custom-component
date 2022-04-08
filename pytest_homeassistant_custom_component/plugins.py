@@ -139,7 +139,9 @@ def disable_socket(allow_unix_socket=False):
                 return super().__new__(cls, *args, **kwargs)
             raise pytest_socket.SocketBlockedError()
 
-    socket.socket = GuardedSocket
+    socket_was_enabled = socket.socket == pytest_socket._true_socket
+    if socket_was_enabled:
+        socket.socket = GuardedSocket
 
 
 def ha_datetime_to_fakedatetime(datetime):

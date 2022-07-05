@@ -8,3 +8,12 @@ tasks:
       pip install -r requirements_generate.txt
       export PYTHONPATH=$PYTHONPATH:${pwd}
       pip install -e .
+github:
+  prebuilds:
+    master: true
+    branches: false
+    pullRequests: false
+    pullRequestsFromForks: false
+    addCheck: false
+    addComment: true
+    addBadge: false

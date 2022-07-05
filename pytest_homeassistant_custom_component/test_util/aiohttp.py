@@ -6,7 +6,6 @@ This file is originally from homeassistant/core and modified by pytest-homeassis
 import asyncio
 from contextlib import contextmanager
 from http import HTTPStatus
-import json as _json
 import re
 from unittest import mock
 from urllib.parse import parse_qs
@@ -18,6 +17,7 @@ from multidict import CIMultiDict
 from yarl import URL
 
 from homeassistant.const import EVENT_HOMEASSISTANT_CLOSE
+from homeassistant.helpers.json import json_dumps, json_loads
 
 RETYPE = type(re.compile(""))
 
@@ -173,7 +173,7 @@ class AiohttpClientMockResponse:
     ):
         """Initialize a fake response."""
         if json is not None:
-            text = _json.dumps(json)
+            text = json_dumps(json)
         if text is not None:
             response = text.encode("utf-8")
         if response is None:
@@ -256,9 +256,9 @@ class AiohttpClientMockResponse:
         """Return mock response as a string."""
         return self.response.decode(encoding, errors=errors)
 
-    async def json(self, encoding="utf-8", content_type=None):
+    async def json(self, encoding="utf-8", content_type=None, loads=json_loads):
         """Return mock response as a json."""
-        return _json.loads(self.response.decode(encoding))
+        return loads(self.response.decode(encoding))
 
     def release(self):
         """Mock release."""

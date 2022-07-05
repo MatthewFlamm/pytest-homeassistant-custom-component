@@ -56,8 +56,8 @@ def process_files():
         os.path.join(PACKAGE_DIR, "components", "recorder", "common.py"),
     )
     shutil.copy2(
-        os.path.join(TMP_DIR, "tests", "components", "recorder", "models_schema_0.py"),
-        os.path.join(PACKAGE_DIR, "components", "recorder", "models_schema_0.py"),
+        os.path.join(TMP_DIR, "tests", "components", "recorder", "db_schema_0.py"),
+        os.path.join(PACKAGE_DIR, "components", "recorder", "db_schema_0.py"),
     )
     shutil.copy2(
         os.path.join(TMP_DIR, "tests", "components", "recorder", "__init__.py"),

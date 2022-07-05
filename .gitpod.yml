@@ -4,7 +4,6 @@
 image:
   file: .gitpod.Dockerfile
 tasks:
-tasks:
   - before: printf 'export PATH="%s:$PATH"\n' "/workspace/pytest-homeassistant-custom-component" >> $HOME/.bashrc && exit
 github:
   prebuilds:

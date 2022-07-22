@@ -1,4 +1,4 @@
-"""Fixtures for trsting."""
+"""Fixtures for testing."""
 import pytest
 
 

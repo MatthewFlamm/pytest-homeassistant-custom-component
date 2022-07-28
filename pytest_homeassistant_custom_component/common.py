@@ -55,6 +55,7 @@ from homeassistant.helpers import (
     entity_platform,
     entity_registry,
     intent,
+    recorder as recorder_helper,
     restore_state,
     storage,
 )
@@ -920,6 +921,8 @@ def init_recorder_component(hass, add_config=None):
     with patch("homeassistant.components.recorder.ALLOW_IN_MEMORY_DB", True), patch(
         "homeassistant.components.recorder.migration.migrate_schema"
     ):
+        if recorder.DOMAIN not in hass.data:
+            recorder_helper.async_initialize_recorder(hass)
         assert setup_component(hass, recorder.DOMAIN, {recorder.DOMAIN: config})
         assert recorder.DOMAIN in hass.config.components
     _LOGGER.info(

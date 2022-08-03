@@ -1,6 +1,6 @@
 # pytest-homeassistant-custom-component
 
-![HA core version](https://img.shields.io/static/v1?label=HA+core+version&message=2022.8.0b4&labelColor=blue)
+![HA core version](https://img.shields.io/static/v1?label=HA+core+version&message=2022.8.0b6&labelColor=blue)
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/MatthewFlamm/pytest-homeassistant-custom-component)
 

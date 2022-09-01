@@ -2,7 +2,7 @@
 codecov==2.1.12
 mypy==0.971
 pre-commit==2.20.0
-pylint==2.14.4
+pylint==2.15.0
 types-atomicwrites==1.4.1
 types-croniter==1.0.0
 types-backports==0.1.3

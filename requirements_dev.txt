@@ -1,9 +1,9 @@
 # This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
-astroid==2.12.5
+astroid==2.12.12
 codecov==2.1.12
-mypy==0.981
+mypy==0.982
 pre-commit==2.20.0
-pylint==2.15.0
+pylint==2.15.5
 types-atomicwrites==1.4.1
 types-croniter==1.0.0
 types-backports==0.1.3

@@ -31,6 +31,7 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Topic :: Software Development :: Testing",
     ],
     entry_points={"pytest11": ["homeassistant = pytest_homeassistant_custom_component.plugins"]},

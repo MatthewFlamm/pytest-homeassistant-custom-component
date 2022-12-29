@@ -8,18 +8,19 @@
 
 -c homeassistant/package_constraints.txt
 -r requirements_test_pre_commit.txt
-coverage==6.4.4
+coverage==7.0.0
 freezegun==1.2.2
 mock-open==1.4.0
 pipdeptree==2.3.1
 pytest-asyncio==0.20.2
 pytest-aiohttp==1.0.4
 pytest-cov==3.0.0
-pytest-freezegun==0.4.2
+pytest-freezer==0.4.6
 pytest-socket==0.5.1
 pytest-test-groups==1.0.3
 pytest-sugar==0.9.5
 pytest-timeout==2.1.0
+pytest-unordered==0.5.2
 pytest-xdist==2.5.0
 pytest==7.2.0
 requests_mock==1.10.0
@@ -27,7 +28,7 @@ respx==0.20.1
 stdlib-list==0.7.0
 tomli==2.0.1;python_version<"3.11"
 tqdm==4.64.0
-homeassistant==2022.12.8
+homeassistant==2023.1.0b1
 sqlalchemy==1.4.44
 
 paho-mqtt==1.6.1

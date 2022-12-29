@@ -1120,6 +1120,11 @@ class MockEntity(entity.Entity):
         return self._handle("supported_features")
 
     @property
+    def translation_key(self):
+        """Return the translation key."""
+        return self._handle("translation_key")
+
+    @property
     def unique_id(self):
         """Return the unique ID of the entity."""
         return self._handle("unique_id")
@@ -1302,6 +1307,38 @@ def assert_lists_same(a, b):
         assert i in b
     for i in b:
         assert i in a
+
+
+_SENTINEL = object()
+
+
+class _HA_ANY:
+    """A helper object that compares equal to everything.
+
+    Based on unittest.mock.ANY, but modified to not show up in pytest's equality
+    assertion diffs.
+    """
+
+    _other = _SENTINEL
+
+    def __eq__(self, other):
+        """Test equal."""
+        self._other = other
+        return True
+
+    def __ne__(self, other):
+        """Test not equal."""
+        self._other = other
+        return False
+
+    def __repr__(self):
+        """Return repr() other to not show up in pytest quality diffs."""
+        if self._other is _SENTINEL:
+            return "<ANY>"
+        return repr(self._other)
+
+
+ANY = _HA_ANY()
 
 
 def raise_contains_mocks(val):

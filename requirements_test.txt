@@ -28,7 +28,7 @@ respx==0.20.1
 stdlib-list==0.7.0
 tomli==2.0.1;python_version<"3.11"
 tqdm==4.64.0
-homeassistant==2023.1.0b4
+homeassistant==2023.1.0b5
 sqlalchemy==1.4.44
 
 paho-mqtt==1.6.1

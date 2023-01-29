@@ -13,7 +13,7 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: 3.10
       - name: install dependencies
         run: pip install -r requirements_generate.txt
       - name: execute generate package

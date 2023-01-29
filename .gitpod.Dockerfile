@@ -1,4 +1,4 @@
-FROM gitpod/workspace-python-3.9
+FROM gitpod/workspace-python-3.10
 
 USER gitpod
 COPY requirements_generate.txt requirements_generate.txt

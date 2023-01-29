@@ -270,7 +270,7 @@ class AiohttpClientMockResponse:
             raise ClientResponseError(
                 request_info=request_info,
                 history=None,
-                code=self.status,
+                status=self.status,
                 headers=self.headers,
             )
 

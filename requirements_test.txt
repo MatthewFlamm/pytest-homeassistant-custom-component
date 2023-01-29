@@ -1,5 +1,5 @@
 # This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
-# linters such as flake8 and pylint should be pinned, as new releases
+# linters such as pylint should be pinned, as new releases
 # make new things fail. Manually update these pins when pulling in a
 # new version
 
@@ -8,9 +8,10 @@
 
 -c homeassistant/package_constraints.txt
 -r requirements_test_pre_commit.txt
-coverage==7.0.0
+coverage==7.0.5
 freezegun==1.2.2
 mock-open==1.4.0
+pylint-per-file-ignores==1.1.0
 pipdeptree==2.3.1
 pytest-asyncio==0.20.2
 pytest-aiohttp==1.0.4
@@ -22,14 +23,13 @@ pytest-sugar==0.9.5
 pytest-timeout==2.1.0
 pytest-unordered==0.5.2
 pytest-xdist==2.5.0
-pytest==7.2.0
+pytest==7.2.1
 requests_mock==1.10.0
 respx==0.20.1
-stdlib-list==0.7.0
 tomli==2.0.1;python_version<"3.11"
 tqdm==4.64.0
-homeassistant==2023.1.7
-sqlalchemy==1.4.44
+homeassistant==2023.2.0b4
+sqlalchemy==1.4.45
 
 paho-mqtt==1.6.1
 

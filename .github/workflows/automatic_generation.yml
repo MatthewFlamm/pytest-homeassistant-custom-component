@@ -21,7 +21,7 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.10
+          python-version: '3.10'
       - name: install dependencies
         run: pip install -r requirements_generate.txt
       - name: execute generate package
@@ -57,7 +57,7 @@ jobs:
     if: needs.generate_package.outputs.need_to_release == 'true'
     strategy:
       matrix:
-        python-version: [3.10]
+        python-version: ['3.10']
     steps:
       - name: checkout repo content
         uses: actions/checkout@v2

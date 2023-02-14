@@ -28,7 +28,7 @@ requests_mock==1.10.0
 respx==0.20.1
 tomli==2.0.1;python_version<"3.11"
 tqdm==4.64.0
-homeassistant==2023.2.3
+homeassistant==2023.2.4
 sqlalchemy==1.4.45
 
 paho-mqtt==1.6.1

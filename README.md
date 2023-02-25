@@ -16,7 +16,7 @@ pytest-homeassistant-custom-component is updated daily according to the latest h
 * If your integration is inside a `custom_components` folder, a `custom_components/__init__.py` file or changes to `sys.path` may be required.
 * `enable_custom_integrations` fixture is required (versions >=2021.6.0b0)
   * Some fixtures, e.g. `recorder_mock`, need to be initialized before `enable_custom_integrations`. See https://github.com/MatthewFlamm/pytest-homeassistant-custom-component/issues/132.
-* pytest-asyncio might now require `asyncio_mode = auto` config.
+* pytest-asyncio might now require `asyncio_mode = auto` config, see #129.
 * If using `load_fixture`, the files need to be in a `fixtures` folder colocated with the tests. For example, a test in `test_sensor.py` can load data from `some_data.json` using `load_fixture` from this structure:
 
 ```

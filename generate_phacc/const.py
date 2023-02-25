@@ -16,6 +16,8 @@ files = [
     "conftest.py",
     "ignore_uncaught_exceptions.py",
     "components/recorder/common.py",
+    "syrupy.py",
+    "typing.py"
 ]
 
 # remove requirements for development only, i.e not related to homeassistant tests

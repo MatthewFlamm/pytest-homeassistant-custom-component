@@ -1,6 +1,6 @@
 # pytest-homeassistant-custom-component
 
-![HA core version](https://img.shields.io/static/v1?label=HA+core+version&message=2023.2.0b4&labelColor=blue)
+![HA core version](https://img.shields.io/static/v1?label=HA+core+version&message=2023.3.0&labelColor=blue)
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/MatthewFlamm/pytest-homeassistant-custom-component)
 
@@ -16,6 +16,7 @@ pytest-homeassistant-custom-component is updated daily according to the latest h
 * If your integration is inside a `custom_components` folder, a `custom_components/__init__.py` file or changes to `sys.path` may be required.
 * `enable_custom_integrations` fixture is required (versions >=2021.6.0b0)
   * Some fixtures, e.g. `recorder_mock`, need to be initialized before `enable_custom_integrations`. See https://github.com/MatthewFlamm/pytest-homeassistant-custom-component/issues/132.
+* pytest-asyncio might now require `asyncio_mode = auto` config, see #129.
 * If using `load_fixture`, the files need to be in a `fixtures` folder colocated with the tests. For example, a test in `test_sensor.py` can load data from `some_data.json` using `load_fixture` from this structure:
 
 ```
@@ -37,6 +38,7 @@ This repository is set up to be nearly fully automatic.
 
 * Version of home-assistant/core is given in `ha_version`, `pytest_homeassistant_custom_component.const`, and in the README above.
 * This package is generated against published releases of homeassistant and updated daily.
+* PRs should not include changes to the `pytest_homeassistant_custom_component` files.  CI testing will automatically generate the new files.
 
 ### Version Strategy
 * When changes in extraction are required, there will be a change in the minor version.

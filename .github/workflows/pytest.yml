@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10"]
+        python-version: ["3.10", "3.11"]
 
     steps:
     - uses: actions/checkout@v2
@@ -23,9 +23,28 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
+    - name: Install dependencies generate
       run: |
         python -m pip install --upgrade pip
+        pip install -r requirements_generate.txt
+    - name: execute generate package
+      run: |
+        export PYTHONPATH=$PYTHONPATH:$(pwd)
+        python generate_phacc/generate_phacc.py --regen
+    - name: list files
+      run: ls -a
+    - name: publish artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: generated-package
+        path: |
+          ./
+          !**/*.pyc
+          !tmp_dir/
+          !.git/
+        if-no-files-found: error
+    - name: Install dependencies test
+      run: |
         pip install -e .
     - name: Test with pytest
       run: |

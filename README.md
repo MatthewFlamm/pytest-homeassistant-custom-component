@@ -38,6 +38,7 @@ This repository is set up to be nearly fully automatic.
 
 * Version of home-assistant/core is given in `ha_version`, `pytest_homeassistant_custom_component.const`, and in the README above.
 * This package is generated against published releases of homeassistant and updated daily.
+* PRs should not include changes to the `pytest_homeassistant_custom_component` files.  CI testing will automatically generate the new files.
 
 ### Version Strategy
 * When changes in extraction are required, there will be a change in the minor version.

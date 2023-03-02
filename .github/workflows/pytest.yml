@@ -32,7 +32,7 @@ jobs:
         export PYTHONPATH=$PYTHONPATH:$(pwd)
         python generate_phacc/generate_phacc.py --regen
     - name: list files
-        run: ls -a
+      run: ls -a
     - name: publish artifact
       uses: actions/upload-artifact@v2
       with:

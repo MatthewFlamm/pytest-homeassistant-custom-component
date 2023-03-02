@@ -171,7 +171,6 @@ def cli(regen):
                 dep = f"{dep}\n"
             new_data.append(dep)
 
-        add_dependency("fnvhash", data, new_data)
         add_dependency("numpy", data, new_data)
 
         removed_data.insert(0, added_text)

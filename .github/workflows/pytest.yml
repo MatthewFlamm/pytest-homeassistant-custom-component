@@ -31,6 +31,18 @@ jobs:
       run: |
         export PYTHONPATH=$PYTHONPATH:$(pwd)
         python generate_phacc/generate_phacc.py --regen
+    - name: list files
+        run: ls -a
+    - name: publish artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: generated-package
+        path: |
+          ./
+          !**/*.pyc
+          !tmp_dir/
+          !.git/
+        if-no-files-found: error
     - name: Install dependencies test
       run: |
         pip install -e .

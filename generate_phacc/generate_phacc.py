@@ -171,7 +171,6 @@ def cli(regen):
                 dep = f"{dep}\n"
             new_data.append(dep)
 
-        add_dependency("sqlalchemy", data, new_data)
         add_dependency("paho-mqtt", data, new_data)
         add_dependency("fnvhash", data, new_data)
         add_dependency("numpy", data, new_data)

@@ -23,9 +23,16 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
+    - name: install dependencies generate
       run: |
         python -m pip install --upgrade pip
+        pip install -r requirements_generate.txt
+    - name: execute generate package
+      run: |
+        export PYTHONPATH=$PYTHONPATH:$(pwd)
+        python generate_phacc/generate_phacc.py --regen
+    - name: Install dependencies test
+      run: |
         pip install -e .
     - name: Test with pytest
       run: |

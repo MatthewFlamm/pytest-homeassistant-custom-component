@@ -171,8 +171,6 @@ def cli(regen):
                 dep = f"{dep}\n"
             new_data.append(dep)
 
-        add_dependency("numpy", data, new_data)
-
         removed_data.insert(0, added_text)
 
         with open(REQUIREMENTS_FILE, "w") as new_file:

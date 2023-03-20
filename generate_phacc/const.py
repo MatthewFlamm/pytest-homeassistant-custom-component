@@ -1,6 +1,6 @@
 """Constants for phacc."""
 TMP_DIR = "tmp_dir"
-PACKAGE_DIR = "pytest_homeassistant_custom_component"
+PACKAGE_DIR = "src/pytest_homeassistant_custom_component"
 REQUIREMENTS_FILE = "requirements_test.txt"
 CONST_FILE = "const.py"
 

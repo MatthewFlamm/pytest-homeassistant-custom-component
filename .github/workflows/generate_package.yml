@@ -21,7 +21,7 @@ jobs:
       - name: execute generate package
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)
-          python generate_phacc/generate_phacc.py
+          python generate_phacc/generate_phacc.py --regen
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:

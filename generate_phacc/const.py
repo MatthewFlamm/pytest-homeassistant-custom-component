@@ -12,7 +12,6 @@ diff = "git diff --exit-code"
 
 files = [
     "__init__.py",
-    "asyncio_legacy.py",  # remove when it is not longer needed
     "common.py",
     "conftest.py",
     "ignore_uncaught_exceptions.py",

@@ -1,6 +1,6 @@
 # pytest-homeassistant-custom-component
 
-![HA core version](https://img.shields.io/static/v1?label=HA+core+version&message=2023.3.0&labelColor=blue)
+![HA core version](https://img.shields.io/static/v1?label=HA+core+version&message=2023.5.0b8&labelColor=blue)
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/MatthewFlamm/pytest-homeassistant-custom-component)
 
@@ -29,8 +29,7 @@ tests/
 ## Examples:
 * See [list of custom components](https://github.com/MatthewFlamm/pytest-homeassistant-custom-component/network/dependents) as examples that use this package.
 * Also see tests for `simple_integration` in this repository.
-* Use [integration-blueprint](https://github.com/custom-components/integration_blueprint) as a template to create your custom component. A basic test suite is already implemented.
-* Use [cookiecutter-homeassistant-custom-component](https://github.com/oncleben31/cookiecutter-homeassistant-custom-component) to create a custom component similar to integration_blueprint but customized for you by using [cookiecutter](https://github.com/cookiecutter/cookiecutter).
+* Use [cookiecutter-homeassistant-custom-component](https://github.com/oncleben31/cookiecutter-homeassistant-custom-component) to create a custom component with tests by using [cookiecutter](https://github.com/cookiecutter/cookiecutter).
 * The [github-custom-component-tutorial](https://github.com/boralyl/github-custom-component-tutorial) explaining in details how to create a custom componenent with a test suite using this package.
 
 ## More Info

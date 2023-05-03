@@ -1,6 +1,6 @@
 """Constants for phacc."""
 TMP_DIR = "tmp_dir"
-PACKAGE_DIR = "pytest_homeassistant_custom_component"
+PACKAGE_DIR = "src/pytest_homeassistant_custom_component"
 REQUIREMENTS_FILE = "requirements_test.txt"
 CONST_FILE = "const.py"
 
@@ -12,7 +12,6 @@ diff = "git diff --exit-code"
 
 files = [
     "__init__.py",
-    "asyncio_legacy.py",  # remove when it is not longer needed
     "common.py",
     "conftest.py",
     "ignore_uncaught_exceptions.py",

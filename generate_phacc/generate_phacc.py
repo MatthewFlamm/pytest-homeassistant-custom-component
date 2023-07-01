@@ -158,7 +158,7 @@ def cli(regen):
 
         def find_dependency(dependency, data):
             for d in data:
-                if dependency in d:
+                if dependency in d.lower():
                     return d
             raise ValueError(f"could not find {dependency}")
 

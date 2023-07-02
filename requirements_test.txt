@@ -11,7 +11,7 @@
 coverage==7.2.4
 freezegun==1.2.2
 mock-open==1.4.0
-pydantic==1.10.8
+pydantic==1.10.9
 pylint-per-file-ignores==1.1.0
 pipdeptree==2.7.0
 pytest-asyncio==0.20.3
@@ -26,13 +26,13 @@ pytest-unordered==0.5.2
 pytest-picked==0.4.6
 pytest-xdist==3.2.1
 pytest==7.3.1
-requests_mock==1.10.0
+requests_mock==1.11.0
 respx==0.20.1
 syrupy==4.0.2
 tomli==2.0.1;python_version<"3.11"
 tqdm==4.64.0
-homeassistant==2023.6.3
-sqlalchemy==2.0.15
+homeassistant==2023.7.0b3
+SQLAlchemy==2.0.15
 
 paho-mqtt==1.6.1
 

@@ -30,7 +30,7 @@ requests_mock==1.11.0
 respx==0.20.2
 syrupy==4.0.8
 tqdm==4.65.0
-homeassistant==2023.8.3
+homeassistant==2023.8.4
 SQLAlchemy==2.0.15
 
 paho-mqtt==1.6.1

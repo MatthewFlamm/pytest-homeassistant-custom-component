@@ -8,7 +8,6 @@ implemented. It is used to test the schema migration logic.
 This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
 """
 
-from datetime import datetime
 import json
 import logging
 
@@ -30,7 +29,6 @@ from homeassistant.helpers.json import JSONEncoder
 import homeassistant.util.dt as dt_util
 
 # SQLAlchemy Schema
-# pylint: disable=invalid-name
 Base = declarative_base()
 
 _LOGGER = logging.getLogger(__name__)
@@ -45,7 +43,7 @@ class Events(Base):  # type: ignore
     event_data = Column(Text)
     origin = Column(String(32))
     time_fired = Column(DateTime(timezone=True))
-    created = Column(DateTime(timezone=True), default=datetime.utcnow)
+    created = Column(DateTime(timezone=True), default=dt_util.utcnow)
 
     @staticmethod
     def from_event(event):
@@ -82,9 +80,9 @@ class States(Base):  # type: ignore
     state = Column(String(255))
     attributes = Column(Text)
     event_id = Column(Integer, ForeignKey("events.event_id"))
-    last_changed = Column(DateTime(timezone=True), default=datetime.utcnow)
-    last_updated = Column(DateTime(timezone=True), default=datetime.utcnow)
-    created = Column(DateTime(timezone=True), default=datetime.utcnow)
+    last_changed = Column(DateTime(timezone=True), default=dt_util.utcnow)
+    last_updated = Column(DateTime(timezone=True), default=dt_util.utcnow)
+    created = Column(DateTime(timezone=True), default=dt_util.utcnow)
 
     __table_args__ = (
         Index("states__state_changes", "last_changed", "last_updated", "entity_id"),
@@ -136,10 +134,10 @@ class RecorderRuns(Base):  # type: ignore
 
     __tablename__ = "recorder_runs"
     run_id = Column(Integer, primary_key=True)
-    start = Column(DateTime(timezone=True), default=datetime.utcnow)
+    start = Column(DateTime(timezone=True), default=dt_util.utcnow)
     end = Column(DateTime(timezone=True))
     closed_incorrect = Column(Boolean, default=False)
-    created = Column(DateTime(timezone=True), default=datetime.utcnow)
+    created = Column(DateTime(timezone=True), default=dt_util.utcnow)
 
     def entity_ids(self, point_in_time=None):
         """Return the entity ids that existed in this run.

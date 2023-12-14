@@ -2,7 +2,7 @@
 astroid==3.0.1
 mypy==1.7.1
 pre-commit==3.5.0
-pylint==3.0.2
+pylint==3.0.3
 types-aiofiles==23.2.0.0
 types-atomicwrites==1.4.5.1
 types-croniter==1.0.6

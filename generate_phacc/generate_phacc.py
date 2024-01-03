@@ -42,6 +42,7 @@ def cli(regen):
         os.mkdir(PACKAGE_DIR)
         os.mkdir(os.path.join(PACKAGE_DIR, "test_util"))
         os.makedirs(os.path.join(PACKAGE_DIR, "components", "recorder"))
+        os.makedirs(os.path.join(PACKAGE_DIR, "testing_config", "custom_components", "test_constant_deprecation"))
         shutil.copy2(os.path.join(TMP_DIR, REQUIREMENTS_FILE), REQUIREMENTS_FILE)
         shutil.copy2(
             os.path.join(TMP_DIR, "homeassistant", CONST_FILE),
@@ -70,6 +71,18 @@ def cli(regen):
         shutil.copy2(
             os.path.join(TMP_DIR, "tests", "components", "__init__.py"),
             os.path.join(PACKAGE_DIR, "components", "__init__.py"),
+        )
+        shutil.copy2(
+            os.path.join(TMP_DIR, "tests", "testing_config", "__init__.py"),
+            os.path.join(PACKAGE_DIR, "testing_config", "__init__.py"),
+        )
+        shutil.copy2(
+            os.path.join(TMP_DIR, "tests", "testing_config", "custom_components", "__init__.py"),
+            os.path.join(PACKAGE_DIR, "testing_config", "custom_components", "__init__.py"),
+        )
+        shutil.copy2(
+            os.path.join(TMP_DIR, "tests", "testing_config", "custom_components", "test_constant_deprecation", "__init__.py"),
+            os.path.join(PACKAGE_DIR, "testing_config", "custom_components", "test_constant_deprecation", "__init__.py"),
         )
         shutil.copy2(
             os.path.join(TMP_DIR, LICENSE_FILE_HA),

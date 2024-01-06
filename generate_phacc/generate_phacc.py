@@ -111,10 +111,11 @@ def cli(regen):
 
         with open(os.path.join(PACKAGE_DIR, CONST_FILE), "r") as original_file:
             data = original_file.readlines()
-        data = [d for d in data[:14] if "from .backports" not in d]
+        new_data = [d for d in data[:100] if "version" in d.lower() or "from typing" in d]
+        new_data.insert(0, data[0])
 
         with open(os.path.join(PACKAGE_DIR, CONST_FILE), "w") as new_file:
-            new_file.write("".join(data))
+            new_file.write("".join(new_data))
 
         added_text = "This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.\n"
         triple_quote = '"""\n'

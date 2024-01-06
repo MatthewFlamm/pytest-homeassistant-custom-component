@@ -25,6 +25,8 @@ setup(
     url="https://github.com/MatthewFlamm/pytest-homeassistant-custom-component",
     author_email="matthewflamm0@gmail.com",
     description="Experimental package to automatically extract test plugins for Home Assistant custom components",
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Framework :: Pytest",

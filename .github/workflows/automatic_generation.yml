@@ -82,11 +82,6 @@ jobs:
     needs: [generate_package, test]
     runs-on: "ubuntu-latest"
     if: needs.generate_package.outputs.need_to_release == 'true'
-    permissions:
-      id-token: write
-    environment:
-      name: pypi
-      url: https://pypi.org/p/pytest-homeassistant-custom-component
     steps:
       - uses: actions/checkout@v2
       - name: download artifact
@@ -141,3 +136,5 @@ jobs:
           python setup.py sdist bdist_wheel
       - name: Publish distribution 📦 to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_TOKEN }}

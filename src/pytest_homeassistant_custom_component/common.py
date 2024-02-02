@@ -582,7 +582,10 @@ def mock_area_registry(
     fixture instead.
     """
     registry = ar.AreaRegistry(hass)
-    registry.areas = mock_entries or OrderedDict()
+    items = ar.AreaRegistryItems()
+    items.data = mock_entries or OrderedDict()
+    registry.areas = items
+    registry._area_data = items.data
 
     hass.data[ar.DATA_REGISTRY] = registry
     return registry

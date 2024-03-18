@@ -41,7 +41,7 @@ jobs:
     - name: publish artifact
       uses: actions/upload-artifact@v4
       with:
-        name: generated-package
+        name: generated-package-${{ matrix.python-version }}
         path: |
           ./
           !**/*.pyc

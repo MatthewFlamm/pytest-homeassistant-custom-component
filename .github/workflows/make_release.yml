@@ -16,7 +16,7 @@ jobs:
         id: current-ha-version
         run: echo "::set-output name=current-ha-version::$(cat ha_version)"
       - id: next_version
-        uses: zwaldowski/semver-release-action@v2
+        uses: zwaldowski/semver-release-action@v4
         with:
           dry_run: true
           bump: ${{ github.event.inputs.type }}
@@ -31,7 +31,7 @@ jobs:
           git commit -m "Bump version"
           git push
           echo "::set-output name=sha::$(git rev-parse HEAD)"
-      - uses: zwaldowski/semver-release-action@v2
+      - uses: zwaldowski/semver-release-action@v4
         with:
           github_token: ${{ secrets.REPO_SCOPED_TOKEN }}
           sha: ${{ steps.git_commit.outputs.sha }}

@@ -3,6 +3,7 @@ Test utilities.
 
 This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
 """
+
 from collections.abc import Awaitable, Callable
 
 from aiohttp.web import Application, Request, StreamResponse, middleware

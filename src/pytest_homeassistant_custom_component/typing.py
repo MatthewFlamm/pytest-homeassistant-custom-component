@@ -3,6 +3,7 @@ Typing helpers for Home Assistant .
 
 This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
 """
+
 from __future__ import annotations
 
 from collections.abc import Callable, Coroutine

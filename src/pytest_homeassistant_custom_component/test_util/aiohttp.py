@@ -3,6 +3,7 @@ Aiohttp test utils.
 
 This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
 """
+
 import asyncio
 from contextlib import contextmanager
 from http import HTTPStatus
@@ -338,7 +339,7 @@ class MockLongPollSideEffect:
     async def __call__(self, method, url, data):
         """Fetch the next response from the queue or wait until the queue has items."""
         if self.stopping:
-            raise ClientError()
+            raise ClientError
         await self.semaphore.acquire()
         kwargs = self.response_list.pop(0)
         return AiohttpClientMockResponse(method=method, url=url, **kwargs)

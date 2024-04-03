@@ -21,7 +21,7 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
       - name: install dependencies
         run: pip install -r requirements_generate.txt
       - name: Install phacc for current versions
@@ -59,7 +59,7 @@ jobs:
     if: needs.generate_package.outputs.need_to_release == 'true'
     strategy:
       matrix:
-        python-version: ['3.11']
+        python-version: ['3.12']
     steps:
       - name: checkout repo content
         uses: actions/checkout@v4
@@ -126,7 +126,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip

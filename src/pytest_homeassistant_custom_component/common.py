@@ -1467,7 +1467,10 @@ def mock_integration(
 
 
 def mock_platform(
-    hass: HomeAssistant, platform_path: str, module: Mock | MockPlatform | None = None
+    hass: HomeAssistant,
+    platform_path: str,
+    module: Mock | MockPlatform | None = None,
+    built_in=True,
 ) -> None:
     """Mock a platform.
 
@@ -1478,7 +1481,7 @@ def mock_platform(
     module_cache = hass.data[loader.DATA_COMPONENTS]
 
     if domain not in integration_cache:
-        mock_integration(hass, MockModule(domain))
+        mock_integration(hass, MockModule(domain), built_in=built_in)
 
     integration_cache[domain]._top_level_files.add(f"{platform_name}.py")
     _LOGGER.info("Adding mock integration platform: %s", platform_path)
@@ -1671,6 +1674,7 @@ def setup_test_component_platform(
     domain: str,
     entities: Sequence[Entity],
     from_config_entry: bool = False,
+    built_in: bool = True,
 ) -> MockPlatform:
     """Mock a test component platform for ."""
 
@@ -1701,9 +1705,5 @@ def setup_test_component_platform(
         platform.async_setup_entry = _async_setup_entry
         platform.async_setup_platform = None
 
-    mock_platform(
-        hass,
-        f"test.{domain}",
-        platform,
-    )
+    mock_platform(hass, f"test.{domain}", platform, built_in=built_in)
     return platform

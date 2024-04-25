@@ -34,7 +34,7 @@ Base = declarative_base()
 _LOGGER = logging.getLogger(__name__)
 
 
-class Events(Base):  # type: ignore
+class Events(Base):  # type: ignore[valid-type,misc]
     """Event history data."""
 
     __tablename__ = "events"
@@ -70,7 +70,7 @@ class Events(Base):  # type: ignore
             return None
 
 
-class States(Base):  # type: ignore
+class States(Base):  # type: ignore[valid-type,misc]
     """State change history."""
 
     __tablename__ = "states"
@@ -129,7 +129,7 @@ class States(Base):  # type: ignore
             return None
 
 
-class RecorderRuns(Base):  # type: ignore
+class RecorderRuns(Base):  # type: ignore[valid-type,misc]
     """Representation of recorder run."""
 
     __tablename__ = "recorder_runs"

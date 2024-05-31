@@ -1,5 +1,6 @@
 # This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
 astroid==3.2.2
+mypy-dev==1.11.0a3
 pre-commit==3.7.1
 pylint==3.2.2
 types-aiofiles==23.2.0.20240403

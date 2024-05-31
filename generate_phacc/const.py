@@ -25,6 +25,7 @@ files = [
 requirements_remove = [
     "codecov",
     "mypy",
+    "mypy-dev",
     "pre-commit",
     "pylint",
     "astroid",

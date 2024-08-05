@@ -19,6 +19,7 @@ files = [
     "patch_time.py",
     "syrupy.py",
     "typing.py",
+    "patch_recorder.py",
 ]
 
 # remove requirements for development only, i.e not related to homeassistant tests

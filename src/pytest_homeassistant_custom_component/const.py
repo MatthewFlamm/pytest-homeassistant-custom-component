@@ -6,6 +6,6 @@ This file is originally from homeassistant/core and modified by pytest-homeassis
 from typing import TYPE_CHECKING, Final
 MAJOR_VERSION: Final = 2024
 MINOR_VERSION: Final = 10
-PATCH_VERSION: Final = "0b3"
+PATCH_VERSION: Final = "0b4"
 __short_version__: Final = f"{MAJOR_VERSION}.{MINOR_VERSION}"
 __version__: Final = f"{__short_version__}.{PATCH_VERSION}"

@@ -1,7 +1,7 @@
 # This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
-astroid==3.3.4
-mypy-dev==1.12.0a3
-pre-commit==3.8.0
+astroid==3.3.5
+mypy-dev==1.13.0a1
+pre-commit==4.0.0
 pylint==3.3.1
 types-aiofiles==24.1.0.20240626
 types-atomicwrites==1.4.5.1
@@ -12,11 +12,11 @@ types-chardet==0.1.5
 types-decorator==5.1.8.20240310
 types-paho-mqtt==1.6.0.20240321
 types-pillow==10.2.0.20240822
-types-protobuf==4.25.0.20240417
+types-protobuf==5.28.0.20240924
 types-psutil==6.0.0.20240901
-types-python-dateutil==2.9.0.20240906
+types-python-dateutil==2.9.0.20241003
 types-python-slugify==8.0.2.20240310
-types-pytz==2024.2.0.20240913
+types-pytz==2024.2.0.20241003
 types-PyYAML==6.0.12.20240917
 types-requests==2.31.0.3
 types-xmltodict==0.13.0.3

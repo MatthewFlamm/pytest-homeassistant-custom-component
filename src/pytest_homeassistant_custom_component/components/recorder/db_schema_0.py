@@ -23,6 +23,7 @@ from sqlalchemy import (
     distinct,
 )
 from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm.session import Session
 
 from homeassistant.core import Event, EventOrigin, State, split_entity_id
 from homeassistant.helpers.json import JSONEncoder
@@ -34,7 +35,7 @@ Base = declarative_base()
 _LOGGER = logging.getLogger(__name__)
 
 
-class Events(Base):  # type: ignore
+class Events(Base):  # type: ignore[valid-type,misc]
     """Event history data."""
 
     __tablename__ = "events"
@@ -70,7 +71,7 @@ class Events(Base):  # type: ignore
             return None
 
 
-class States(Base):  # type: ignore
+class States(Base):  # type: ignore[valid-type,misc]
     """State change history."""
 
     __tablename__ = "states"
@@ -129,7 +130,7 @@ class States(Base):  # type: ignore
             return None
 
 
-class RecorderRuns(Base):  # type: ignore
+class RecorderRuns(Base):  # type: ignore[valid-type,misc]
     """Representation of recorder run."""
 
     __tablename__ = "recorder_runs"
@@ -145,8 +146,6 @@ class RecorderRuns(Base):  # type: ignore
         Specify point_in_time if you want to know which existed at that point
         in time inside the run.
         """
-        from sqlalchemy.orm.session import Session
-
         session = Session.object_session(self)
 
         assert session is not None, "RecorderRuns need to be persisted"

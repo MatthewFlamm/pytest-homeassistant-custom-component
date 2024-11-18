@@ -19,12 +19,14 @@ files = [
     "patch_time.py",
     "syrupy.py",
     "typing.py",
+    "patch_recorder.py",
 ]
 
 # remove requirements for development only, i.e not related to homeassistant tests
 requirements_remove = [
     "codecov",
     "mypy",
+    "mypy-dev",
     "pre-commit",
     "pylint",
     "astroid",

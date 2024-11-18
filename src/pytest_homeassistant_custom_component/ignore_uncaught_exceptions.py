@@ -3,12 +3,31 @@ List of tests that have uncaught exceptions today. Will be shrunk over time.
 
 This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
 """
+
 IGNORE_UNCAUGHT_EXCEPTIONS = [
     (
         # This test explicitly throws an uncaught exception
         # and should not be removed.
         ".test_runner",
         "test_unhandled_exception_traceback",
+    ),
+    (
+        # This test explicitly throws an uncaught exception
+        # and should not be removed.
+        ".helpers.test_event",
+        "test_track_point_in_time_repr",
+    ),
+    (
+        # This test explicitly throws an uncaught exception
+        # and should not be removed.
+        ".test_config_entries",
+        "test_config_entry_unloaded_during_platform_setups",
+    ),
+    (
+        # This test explicitly throws an uncaught exception
+        # and should not be removed.
+        ".test_config_entries",
+        "test_config_entry_unloaded_during_platform_setup",
     ),
     (
         "test_homeassistant_bridge",

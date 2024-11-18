@@ -1,4 +1,4 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/python:0-3.11",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
   "postCreateCommand": "pip3 install -r requirements_generate.txt"
 }

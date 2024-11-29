@@ -59,7 +59,7 @@ jobs:
     if: needs.generate_package.outputs.need_to_release == 'true'
     strategy:
       matrix:
-        python-version: ['3.13']
+        python-version: ['3.12', '3.13']
     steps:
       - name: checkout repo content
         uses: actions/checkout@v4

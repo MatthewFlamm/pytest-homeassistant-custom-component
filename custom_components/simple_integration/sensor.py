@@ -1,5 +1,5 @@
 """Platform for sensor integration."""
-from homeassistant.const import TEMP_CELSIUS
+from homeassistant.const import UnitOfTemperature
 from homeassistant.helpers.entity import Entity
 
 
@@ -33,4 +33,4 @@ class ExampleSensor(Entity):
     @property
     def unit_of_measurement(self):
         """Return the unit of measurement."""
-        return TEMP_CELSIUS
+        return UnitOfTemperature.CELSIUS

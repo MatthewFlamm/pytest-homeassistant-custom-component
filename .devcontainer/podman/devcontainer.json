@@ -1,5 +1,5 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "image": "mcr.microsoft.com/devcontainers/python:3.13",
   "postCreateCommand": "pip install --upgrade pip && pip3 install -r requirements_generate.txt",
   // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   "runArgs": [

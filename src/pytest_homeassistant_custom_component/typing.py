@@ -7,6 +7,7 @@ This file is originally from homeassistant/core and modified by pytest-homeassis
 from __future__ import annotations
 
 from collections.abc import Callable, Coroutine
+from contextlib import AbstractAsyncContextManager
 from typing import TYPE_CHECKING, Any
 from unittest.mock import MagicMock
 
@@ -34,6 +35,10 @@ type MqttMockHAClient = MagicMock
 """MagicMock for `homeassistant.components.mqtt.MQTT`."""
 type MqttMockHAClientGenerator = Callable[..., Coroutine[Any, Any, MqttMockHAClient]]
 """MagicMock generator for `homeassistant.components.mqtt.MQTT`."""
+type RecorderInstanceContextManager = Callable[
+    ..., AbstractAsyncContextManager[Recorder]
+]
+"""ContextManager for `homeassistant.components.recorder.Recorder`."""
 type RecorderInstanceGenerator = Callable[..., Coroutine[Any, Any, Recorder]]
 """Instance generator for `homeassistant.components.recorder.Recorder`."""
 type WebSocketGenerator = Callable[..., Coroutine[Any, Any, MockHAClientWebSocket]]

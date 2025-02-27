@@ -164,6 +164,7 @@ class HomeAssistantSnapshotSerializer(AmberDataSerializer):
             attrs.asdict(data)
             | {
                 "config_entries": ANY,
+                "config_entries_subentries": ANY,
                 "id": ANY,
             }
         )
@@ -192,6 +193,7 @@ class HomeAssistantSnapshotSerializer(AmberDataSerializer):
             attrs.asdict(data)
             | {
                 "config_entry_id": ANY,
+                "config_subentry_id": ANY,
                 "device_id": ANY,
                 "id": ANY,
                 "options": {k: dict(v) for k, v in data.options.items()},

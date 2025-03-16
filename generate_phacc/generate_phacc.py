@@ -225,12 +225,20 @@ def cli(regen):
         assert len(fixture_path_lineno) == 1
         data.insert(
             fixture_path_lineno[0] + 2,
-            "    start_path = traceback.extract_stack()[-3].filename\n",
+            "    start_path = (current_file := traceback.extract_stack()[idx:=-1].filename)\n",
         )
-        data[fixture_path_lineno[0] + 7] = data[fixture_path_lineno[0] + 7].replace(
-            "__file__", "start_path"
+        data.insert(
+            fixture_path_lineno[0] + 3,
+            "    while start_path == current_file:\n",
+        )
+        data.insert(
+            fixture_path_lineno[0] + 4,
+            "        start_path = traceback.extract_stack()[idx:=idx-1].filename\n",
         )
         data[fixture_path_lineno[0] + 9] = data[fixture_path_lineno[0] + 9].replace(
+            "__file__", "start_path"
+        )
+        data[fixture_path_lineno[0] + 11] = data[fixture_path_lineno[0] + 11].replace(
             "__file__", "start_path"
         )
 

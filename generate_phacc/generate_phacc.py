@@ -42,6 +42,7 @@ def cli(regen):
         os.mkdir(PACKAGE_DIR)
         os.mkdir(os.path.join(PACKAGE_DIR, "test_util"))
         os.makedirs(os.path.join(PACKAGE_DIR, "components", "recorder"))
+        os.makedirs(os.path.join(PACKAGE_DIR, "components", "diagnostics"))
         os.makedirs(os.path.join(PACKAGE_DIR, "testing_config", "custom_components", "test_constant_deprecation"))
         shutil.copy2(os.path.join(TMP_DIR, REQUIREMENTS_FILE), REQUIREMENTS_FILE)
         shutil.copy2(
@@ -67,6 +68,10 @@ def cli(regen):
         shutil.copy2(
             os.path.join(TMP_DIR, "tests", "components", "recorder", "__init__.py"),
             os.path.join(PACKAGE_DIR, "components", "recorder", "__init__.py"),
+        )
+        shutil.copy2(
+            os.path.join(TMP_DIR, "tests", "components", "diagnostics", "__init__.py"),
+            os.path.join(PACKAGE_DIR, "components", "diagnostics", "__init__.py"),
         )
         shutil.copy2(
             os.path.join(TMP_DIR, "tests", "components", "__init__.py"),
@@ -235,6 +240,21 @@ def cli(regen):
         )
 
         with open(os.path.join(PACKAGE_DIR, "common.py"), "w") as new_file:
+            new_file.writelines(data)
+
+        # modify diagnostics file
+        with open(os.path.join(PACKAGE_DIR, "components", "diagnostics", "__init__.py"), "r") as original_file:
+            data = original_file.readlines()
+
+        diagnostics_lineno = [
+            i for i, line in enumerate(data) if "from tests.typing" in line
+        ]
+        assert len(diagnostics_lineno) == 1
+        data[diagnostics_lineno[0]] = data[diagnostics_lineno[0]].replace(
+            "tests.typing","pytest_homeassistant_custom_component.typing"
+        )
+
+        with open(os.path.join(PACKAGE_DIR, "components", "diagnostics", "__init__.py"), "w") as new_file:
             new_file.writelines(data)
 
 

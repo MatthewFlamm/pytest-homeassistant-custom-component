@@ -26,6 +26,19 @@ tests/
    test_sensor.py
 ```
 
+* When using syrupy snapshots, add a `snapshot` fixture to conftest.py to make sure the snapshots are loaded from snapshot folder colocated with the tests.
+
+```py
+    from pytest_homeassistant_custom_component.syrupy import HomeAssistantSnapshotExtension
+    from syrupy.assertion import SnapshotAssertion
+
+
+    @pytest.fixture
+    def snapshot(snapshot: SnapshotAssertion) -> SnapshotAssertion:
+        """Return snapshot assertion fixture with the Home Assistant extension."""
+        return snapshot.use_extension(HomeAssistantSnapshotExtension)
+```
+
 ## Examples:
 * See [list of custom components](https://github.com/MatthewFlamm/pytest-homeassistant-custom-component/network/dependents) as examples that use this package.
 * Also see tests for `simple_integration` in this repository.

@@ -10,9 +10,10 @@
 -r requirements_test_pre_commit.txt
 coverage==7.6.12
 freezegun==1.5.1
+go2rtc-client==0.1.2
 license-expression==30.4.1
 mock-open==1.4.0
-pydantic==2.10.6
+pydantic==2.11.3
 pylint-per-file-ignores==1.4.0
 pipdeptree==2.25.1
 pytest-asyncio==0.26.0
@@ -31,8 +32,8 @@ requests-mock==1.12.1
 respx==0.22.0
 syrupy==4.8.1
 tqdm==4.67.1
-homeassistant==2025.4.4
-SQLAlchemy==2.0.39
+homeassistant==2025.5.0b0
+SQLAlchemy==2.0.40
 
 paho-mqtt==2.1.0
 

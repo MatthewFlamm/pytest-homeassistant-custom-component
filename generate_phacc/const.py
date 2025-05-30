@@ -19,6 +19,7 @@ files = [
     "patch_time.py",
     "syrupy.py",
     "typing.py",
+    "patch_json.py",
     "patch_recorder.py",
 ]
 

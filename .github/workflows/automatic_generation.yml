@@ -14,7 +14,7 @@ jobs:
       need_to_release: ${{ steps.need-to-release.outputs.need-to-release }}
     steps:
       - name: checkout repo content
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: store current ha version
         id: current-ha-version
         run: echo "::set-output name=current-ha-version::$(cat ha_version)"
@@ -62,7 +62,7 @@ jobs:
         python-version: ['3.13']
     steps:
       - name: checkout repo content
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: download artifact
         uses: actions/download-artifact@v5
         with:
@@ -83,7 +83,7 @@ jobs:
     runs-on: "ubuntu-latest"
     if: needs.generate_package.outputs.need_to_release == 'true'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: download artifact
         uses: actions/download-artifact@v5
         with:

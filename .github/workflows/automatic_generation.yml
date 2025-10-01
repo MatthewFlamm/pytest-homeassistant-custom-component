@@ -19,7 +19,7 @@ jobs:
         id: current-ha-version
         run: echo "::set-output name=current-ha-version::$(cat ha_version)"
       - name: setup python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.13'
       - name: install dependencies
@@ -68,7 +68,7 @@ jobs:
         with:
           name: generated-package
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
@@ -124,7 +124,7 @@ jobs:
           draft: false
           prerelease: false
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.13'
       - name: Install dependencies

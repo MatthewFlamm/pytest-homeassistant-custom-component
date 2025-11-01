@@ -40,7 +40,7 @@ jobs:
     - name: list files
       run: ls -a
     - name: publish artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: generated-package-${{ matrix.python-version }}
         path: |

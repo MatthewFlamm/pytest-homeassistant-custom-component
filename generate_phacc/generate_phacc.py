@@ -74,10 +74,6 @@ def cli(regen):
             os.path.join(PACKAGE_DIR, "components", "diagnostics", "__init__.py"),
         )
         shutil.copy2(
-            os.path.join(TMP_DIR, "tests", "components", "__init__.py"),
-            os.path.join(PACKAGE_DIR, "components", "__init__.py"),
-        )
-        shutil.copy2(
             os.path.join(TMP_DIR, "tests", "testing_config", "__init__.py"),
             os.path.join(PACKAGE_DIR, "testing_config", "__init__.py"),
         )

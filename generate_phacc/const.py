@@ -27,6 +27,7 @@ files = [
 # remove requirements for development only, i.e not related to homeassistant tests
 requirements_remove = [
     "codecov",
+    "librt",
     "mypy",
     "mypy-dev",
     "pre-commit",

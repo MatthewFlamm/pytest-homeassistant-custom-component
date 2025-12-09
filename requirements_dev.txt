@@ -1,5 +1,6 @@
 # This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
 astroid==4.0.1
+librt==0.2.1
 mypy-dev==1.19.0a4
 pre-commit==4.2.0
 pylint==4.0.1

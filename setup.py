@@ -7,7 +7,14 @@ requirements = [
 ]
 with open("requirements_test.txt","r") as f:
     for line in f:
-        if "txt" not in line and "#" not in line:
+        line = line.strip()
+        # Skip empty lines and lines that reference other files
+        if not line or line.startswith("-") or ".txt" in line:
+            continue
+        # Strip inline comments but keep the requirement
+        if "#" in line:
+            line = line.split("#")[0].strip()
+        if line:
             requirements.append(line)
 
 with open("version", "r") as f:

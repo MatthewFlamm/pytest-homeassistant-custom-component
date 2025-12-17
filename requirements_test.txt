@@ -39,4 +39,3 @@ SQLAlchemy==2.0.41
 paho-mqtt==2.1.0
 
 numpy==2.3.2
-pycares<5.0.0  # Pin to 4.x until aiodns supports pycares 5.0 breaking changes

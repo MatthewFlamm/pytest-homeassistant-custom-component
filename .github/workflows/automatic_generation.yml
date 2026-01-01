@@ -64,7 +64,7 @@ jobs:
       - name: checkout repo content
         uses: actions/checkout@v5
       - name: download artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v7
         with:
           name: generated-package
       - name: Set up Python ${{ matrix.python-version }}
@@ -85,7 +85,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: download artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v7
         with:
           name: generated-package
       - name: need_to_release_print

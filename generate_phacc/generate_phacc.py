@@ -99,7 +99,7 @@ def cli(regen):
                 filedata = file.read()
 
             filedata = filedata.replace(
-                "tests.", "." * (f.count("/") + 1)
+                "from tests.", "from " + "." * (f.count("/") + 1)
             )  # Add dots depending on depth
 
             with open(filename, "w") as file:

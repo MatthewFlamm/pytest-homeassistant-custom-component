@@ -1,5 +1,5 @@
 """
-Typing helpers for Home Assistant .
+Typing helpers for Home Assistant tests.
 
 This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
 """

@@ -209,7 +209,7 @@ def statistics_during_period(
     types: set[Literal["last_reset", "max", "mean", "min", "state", "sum"]]
     | None = None,
 ) -> dict[str, list[dict[str, Any]]]:
-    """Call statistics_during_period with defaults for simpler ..."""
+    """Call statistics_during_period with defaults for simpler tests."""
     if statistic_ids is not None and not isinstance(statistic_ids, set):
         statistic_ids = set(statistic_ids)
     if types is None:
@@ -462,7 +462,7 @@ def create_engine_test_for_schema_version_postfix(
 
 def get_schema_module_path(schema_version_postfix: str) -> str:
     """Return the path to the schema module."""
-    return f"...components.recorder.db_schema_{schema_version_postfix}"
+    return f"tests.components.recorder.db_schema_{schema_version_postfix}"
 
 
 def get_patched_live_version(old_db_schema: ModuleType) -> int:

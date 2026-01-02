@@ -131,7 +131,7 @@ if TYPE_CHECKING:
     from homeassistant.components import recorder
 
 
-pytest.register_assert_rewrite(".common")
+pytest.register_assert_rewrite("tests.common")
 
 from .common import (  # noqa: E402, isort:skip
     CLIENT_ID,
@@ -1274,9 +1274,11 @@ def evict_faked_translations(translations_once) -> Generator[_patch]:
     component_paths = components.__path__
 
     for call in mock_component_strings.mock_calls:
+        _components: set[str] = call.args[2]
         integrations: dict[str, loader.Integration] = call.args[3]
-        for domain, integration in integrations.items():
-            if any(
+        for domain in _components:
+            # If the integration exists, don't evict from cache
+            if (integration := integrations.get(domain)) and any(
                 pathlib.Path(f"{component_path}/{domain}") == integration.file_path
                 for component_path in component_paths
             ):
@@ -1478,7 +1480,7 @@ def persistent_database() -> bool:
     When using sqlite, this uses on disk database instead of in memory database.
     This does nothing when using mysql or postgresql.
 
-    Note that the database is always destroyed in between .
+    Note that the database is always destroyed in between tests.
 
     To use a persistent database, tests can be marked with:
     @pytest.mark.parametrize("persistent_database", [True])
@@ -2137,7 +2139,7 @@ DhcpServiceInfo.__init__ = _dhcp_service_info_init
 
 @pytest.fixture(autouse=True)
 def disable_http_server() -> Generator[None]:
-    """Disable automatic start of HTTP server during .
+    """Disable automatic start of HTTP server during tests.
 
     This prevents the HTTP server from starting in tests that setup
     integrations which depend on the HTTP component.

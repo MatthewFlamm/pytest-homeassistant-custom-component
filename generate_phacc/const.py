@@ -31,6 +31,7 @@ requirements_remove = [
     "mypy",
     "mypy-dev",
     "pre-commit",
+    "prek",
     "pylint",
     "astroid",
 ]

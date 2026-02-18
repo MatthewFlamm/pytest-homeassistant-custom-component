@@ -5,10 +5,15 @@ from setuptools import setup, find_packages
 requirements = [
     "sqlalchemy",
 ]
+optional_requirements = []
 with open("requirements_test.txt","r") as f:
     for line in f:
-        if "txt" not in line and "#" not in line:
-            requirements.append(line)
+        line = line.strip()
+        if "txt" not in line and "#" not in line and line:
+            if line.startswith("pytest-socket"):
+                optional_requirements.append(line)
+            else:
+                requirements.append(line)
 
 with open("version", "r") as f:
     __version__ = f.read()
@@ -21,6 +26,9 @@ setup(
     package_dir={"": "src"},
     python_requires=">=3.13",
     install_requires=requirements,
+    extras_require={
+        "socket": optional_requirements,
+    },
     license="MIT license",
     url="https://github.com/MatthewFlamm/pytest-homeassistant-custom-component",
     author_email="matthewflamm0@gmail.com",

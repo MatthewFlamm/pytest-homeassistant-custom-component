@@ -568,7 +568,11 @@ def get_fixture_path(filename: str, integration: str | None = None) -> pathlib.P
     start_path = (current_file := traceback.extract_stack()[idx:=-1].filename)
     while start_path == current_file:
         start_path = traceback.extract_stack()[idx:=idx-1].filename
-    if integration is None and "/" in filename and not filename.startswith("helpers/"):
+    if (
+        integration is None
+        and "/" in filename
+        and not filename.startswith(("core/", "helpers/"))
+    ):
         integration, filename = filename.split("/", 1)
 
     if integration is None:

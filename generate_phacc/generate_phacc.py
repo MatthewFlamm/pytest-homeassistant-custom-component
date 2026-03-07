@@ -236,10 +236,10 @@ def cli(regen):
             fixture_path_lineno[0] + 4,
             "        start_path = traceback.extract_stack()[idx:=idx-1].filename\n",
         )
-        data[fixture_path_lineno[0] + 9] = data[fixture_path_lineno[0] + 9].replace(
+        data[fixture_path_lineno[0] + 13] = data[fixture_path_lineno[0] + 13].replace(
             "__file__", "start_path"
         )
-        data[fixture_path_lineno[0] + 11] = data[fixture_path_lineno[0] + 11].replace(
+        data[fixture_path_lineno[0] + 15] = data[fixture_path_lineno[0] + 15].replace(
             "__file__", "start_path"
         )
 

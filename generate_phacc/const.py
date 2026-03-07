@@ -33,6 +33,7 @@ requirements_remove = [
     "pre-commit",
     "prek",
     "pylint",
+    "pytest-sugar",
     "astroid",
 ]
 

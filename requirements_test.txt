@@ -22,7 +22,6 @@ pytest-cov==7.0.0
 pytest-freezer==0.4.9
 pytest-github-actions-annotate-failures==0.3.0
 pytest-socket==0.7.0
-pytest-sugar==1.0.0
 pytest-timeout==2.4.0
 pytest-unordered==0.7.0
 pytest-picked==0.5.1
@@ -32,7 +31,7 @@ requests-mock==1.12.1
 respx==0.22.0
 syrupy==5.0.0
 tqdm==4.67.1
-homeassistant==2026.3.1
+homeassistant==2026.3.2
 SQLAlchemy==2.0.41
 
 paho-mqtt==2.1.0

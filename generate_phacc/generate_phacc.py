@@ -6,7 +6,6 @@ import shutil
 import os
 
 import click
-import git
 
 from ha import prepare_homeassistant
 from const import (
@@ -17,7 +16,6 @@ from const import (
     REQUIREMENTS_FILE_DEV,
     LICENSE_FILE_HA,
     LICENSE_FILE_NEW,
-    path,
     files,
     requirements_remove,
     HA_VERSION_FILE,
@@ -186,6 +184,7 @@ def cli(regen):
                 dep = f"{dep}\n"
             new_data.append(dep)
 
+        add_dependency("aiohasupervisor", data, new_data)
         add_dependency("sqlalchemy", data, new_data)
         add_dependency("paho-mqtt", data, new_data)
         add_dependency("numpy", data, new_data)

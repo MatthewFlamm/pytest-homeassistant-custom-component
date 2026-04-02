@@ -16,6 +16,7 @@ files = [
     "conftest.py",
     "ignore_uncaught_exceptions.py",
     "components/__init__.py",
+    "components/common.py",
     "components/recorder/common.py",
     "patch_time.py",
     "syrupy.py",

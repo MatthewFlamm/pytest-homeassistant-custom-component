@@ -31,7 +31,7 @@ requests-mock==1.12.1
 respx==0.22.0
 syrupy==5.0.0
 tqdm==4.67.1
-homeassistant==2026.4.3
+homeassistant==2026.4.4
 aiohasupervisor==0.4.3
 
 SQLAlchemy==2.0.41

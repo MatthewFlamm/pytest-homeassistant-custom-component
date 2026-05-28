@@ -4,8 +4,6 @@ Common test utils for working with recorder.
 This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
 """
 
-from __future__ import annotations
-
 import asyncio
 from collections.abc import Iterable, Iterator
 from contextlib import contextmanager
@@ -261,7 +259,7 @@ def assert_events_equal_without_context(event: Event, other: Event) -> None:
     """Assert that two events are equal, ignoring context."""
     assert event.data == other.data
     assert event.event_type == other.event_type
-    assert event.origin == other.origin
+    assert event.origin is other.origin
     assert event.time_fired == other.time_fired
 
 

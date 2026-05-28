@@ -4,8 +4,6 @@ Patch time related functions.
 This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
 """
 
-from __future__ import annotations
-
 import datetime
 import time
 

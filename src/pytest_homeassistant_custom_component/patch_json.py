@@ -4,8 +4,6 @@ Patch JSON related functions.
 This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
 """
 
-from __future__ import annotations
-
 import functools
 from typing import Any
 from unittest import mock

@@ -223,7 +223,10 @@ class BasicTriggerStateDescription(TypedDict):
 
 
 class TriggerStateDescription(BasicTriggerStateDescription):
-    """Test state and expected service call count for both included and excluded entities."""
+    """Test state and expected service call count.
+
+    Covers both included and excluded entities.
+    """
 
     excluded_state: StateDescription  # State for entities not meant to be targeted
     # State for the *other* targeted entities (the ones not under direct test).
@@ -241,7 +244,9 @@ class ConditionStateDescription(TypedDict):
     excluded_state: StateDescription  # State for entities not meant to be targeted
 
     condition_true: bool  # If the condition is expected to evaluate to true
-    condition_true_first_entity: bool  # If the condition is expected to evaluate to true for the first targeted entity
+    # If the condition is expected to evaluate to true
+    # for the first targeted entity
+    condition_true_first_entity: bool
 
 
 def _parametrize_condition_states(
@@ -840,7 +845,7 @@ def parametrize_numerical_attribute_changed_trigger_states(
     attribute_value_scale: float = 1.0,
     attribute_required: bool = False,
 ) -> list[tuple[str, dict[str, Any], list[TriggerStateDescription]]]:
-    """Parametrize states and expected service call counts for numerical-changed triggers.
+    """Parametrize states for numerical-changed triggers.
 
     Generates state sequences for a trigger that fires whenever an attribute
     crosses or matches a "changed" threshold (modes "any" / "above" / "below").
@@ -986,7 +991,7 @@ def parametrize_numerical_attribute_crossed_threshold_trigger_states(
     attribute_value_scale: float = 1.0,
     attribute_required: bool = False,
 ) -> list[tuple[str, dict[str, Any], list[TriggerStateDescription]]]:
-    """Parametrize states and expected service call counts for numerical crossed-threshold triggers.
+    """Parametrize states for numerical crossed-threshold triggers.
 
     Generates state sequences for a trigger that fires when an attribute
     crosses a threshold boundary. The trigger is exercised across four
@@ -1061,8 +1066,8 @@ def parametrize_numerical_attribute_crossed_threshold_trigger_states(
                 threshold_unit,
             ),
             target_states=[
-                (state, {attribute: 50 * s} | unit_attributes),
-                (state, {attribute: 60 * s} | unit_attributes),
+                (state, {attribute: 10 * s} | unit_attributes),
+                (state, {attribute: 90 * s} | unit_attributes),
             ],
             other_states=[
                 other_invalid_attr,
@@ -1091,8 +1096,8 @@ def parametrize_numerical_attribute_crossed_threshold_trigger_states(
             ],
             other_states=[
                 other_invalid_attr,
-                (state, {attribute: 50 * s} | unit_attributes),
-                (state, {attribute: 60 * s} | unit_attributes),
+                (state, {attribute: 10 * s} | unit_attributes),
+                (state, {attribute: 90 * s} | unit_attributes),
             ],
             extra_excluded_states=extra_excluded_states,
             required_filter_attributes=required_filter_attributes,
@@ -1154,11 +1159,11 @@ def parametrize_numerical_state_value_changed_trigger_states(
     trigger_options: dict[str, Any] | None = None,
     unit_attributes: dict | None = None,
 ) -> list[tuple[str, dict[str, Any], list[TriggerStateDescription]]]:
-    """Parametrize states and expected service call counts for numerical state-value changed triggers.
+    """Parametrize states for numerical state-value changed triggers.
 
-    Unlike parametrize_numerical_attribute_changed_trigger_states, this is for
-    entities where the tracked numerical value is in state.state (e.g. sensor
-    entities), not in an attribute.
+    Unlike parametrize_numerical_attribute_changed_trigger_states,
+    this is for entities where the tracked numerical value is in
+    state.state (e.g. sensor entities), not in an attribute.
     """
     from homeassistant.const import ATTR_DEVICE_CLASS  # noqa: PLC0415
 
@@ -1235,7 +1240,7 @@ def parametrize_numerical_state_value_crossed_threshold_trigger_states(
     trigger_options: dict[str, Any] | None = None,
     unit_attributes: dict | None = None,
 ) -> list[tuple[str, dict[str, Any], list[TriggerStateDescription]]]:
-    """Parametrize states and expected service call counts for numerical state-value crossed threshold triggers.
+    """Parametrize states for numerical state-value crossed threshold triggers.
 
     Unlike parametrize_numerical_attribute_crossed_threshold_trigger_states,
     this is for entities where the tracked numerical value is in state.state
@@ -1261,7 +1266,7 @@ def parametrize_numerical_state_value_crossed_threshold_trigger_states(
                 },
                 threshold_unit,
             ),
-            target_states=[("50", unit_attributes), ("60", unit_attributes)],
+            target_states=[("10", unit_attributes), ("90", unit_attributes)],
             other_states=[
                 ("none", unit_attributes),
                 ("0", unit_attributes),
@@ -1286,8 +1291,8 @@ def parametrize_numerical_state_value_crossed_threshold_trigger_states(
             target_states=[("0", unit_attributes), ("100", unit_attributes)],
             other_states=[
                 ("none", unit_attributes),
-                ("50", unit_attributes),
-                ("60", unit_attributes),
+                ("10", unit_attributes),
+                ("90", unit_attributes),
             ],
             required_filter_attributes=required_filter_attributes,
             trigger_from_none=False,
@@ -1336,7 +1341,7 @@ async def arm_trigger(
     trigger_target: dict,
     calls: list[str],
 ) -> None:
-    """Arm the specified trigger and record fired entity_ids in calls when it triggers."""
+    """Arm the trigger and record fired entity_ids in calls."""
     options = {CONF_OPTIONS: {**trigger_options}} if trigger_options is not None else {}
 
     trigger_config = {
@@ -1485,7 +1490,7 @@ async def _validate_condition_options(
     *,
     valid: bool,
 ) -> None:
-    """Assert that a condition accepts or rejects the given options during validation."""
+    """Assert that a condition accepts or rejects the given options."""
     config: dict[str, Any] = {
         CONF_CONDITION: condition,
         CONF_TARGET: {ATTR_LABEL_ID: "test_label"},
@@ -1631,7 +1636,7 @@ async def assert_trigger_options_supported(
         return {**(base_options or {}), **extra}
 
     # Behavior
-    for behavior in ("any", "first", "last"):
+    for behavior in ("each", "first", "all"):
         await _validate_trigger_options(
             hass, trigger, _merge({"behavior": behavior}), valid=supports_behavior
         )
@@ -1749,7 +1754,7 @@ async def assert_condition_behavior_all(
         assert cond.async_check() == state["condition_true"]
 
 
-async def assert_trigger_behavior_any(
+async def assert_trigger_behavior_each(
     hass: HomeAssistant,
     *,
     target_entities: dict[str, list[str]],
@@ -1760,7 +1765,7 @@ async def assert_trigger_behavior_any(
     trigger_options: dict[str, Any],
     states: list[TriggerStateDescription],
 ) -> None:
-    """Test trigger fires in mode any."""
+    """Test trigger fires in mode each."""
     calls: list[str] = []
     other_entity_ids = set(target_entities["included_entities"]) - {entity_id}
     excluded_entity_ids = set(target_entities["excluded_entities"]) - {entity_id}
@@ -1854,7 +1859,7 @@ async def assert_trigger_behavior_first(
         assert len(calls) == 0
 
 
-async def assert_trigger_behavior_last(
+async def assert_trigger_behavior_all(
     hass: HomeAssistant,
     *,
     target_entities: dict[str, list[str]],
@@ -1865,7 +1870,7 @@ async def assert_trigger_behavior_last(
     trigger_options: dict[str, Any],
     states: list[TriggerStateDescription],
 ) -> None:
-    """Test trigger fires in mode last."""
+    """Test trigger fires in mode all."""
     calls: list[str] = []
     other_entity_ids = set(target_entities["included_entities"]) - {entity_id}
     excluded_entity_ids = set(target_entities["excluded_entities"]) - {entity_id}
@@ -1880,7 +1885,7 @@ async def assert_trigger_behavior_last(
     await arm_trigger(
         hass,
         trigger,
-        {"behavior": "last"} | trigger_options,
+        {"behavior": "all"} | trigger_options,
         trigger_target_config,
         calls,
     )
@@ -1915,10 +1920,11 @@ def parametrize_numerical_condition_above_below_any(
     threshold_unit: str | None | UndefinedType = UNDEFINED,
     unit_attributes: dict | None = None,
 ) -> list[tuple[str, dict[str, Any], list[ConditionStateDescription]]]:
-    """Parametrize above/below/between threshold cases for state-value numerical conditions under behavior=any.
+    """Parametrize threshold cases for state-value numerical conditions.
 
-    Generates state sequences for a condition that reads its tracked value
-    directly from `state.state` (e.g. a sensor with a temperature device
+    Uses behavior=any. Generates state sequences for a condition
+    that reads its tracked value directly from `state.state`
+    (e.g. a sensor with a temperature device
     class). The condition is exercised across three threshold types in turn
     — "above", "below", "between" — and for each, the helper invokes
     `parametrize_condition_states_any` with target/other states populated
@@ -2014,14 +2020,14 @@ def parametrize_numerical_condition_above_below_any(
                 threshold_unit,
             ),
             target_states=[
-                ("21", unit_attributes),
+                ("20", unit_attributes),
                 ("50", unit_attributes),
-                ("79", unit_attributes),
+                ("80", unit_attributes),
             ],
             other_states=[
                 ("0", unit_attributes),
-                ("20", unit_attributes),
-                ("80", unit_attributes),
+                ("19", unit_attributes),
+                ("81", unit_attributes),
                 ("100", unit_attributes),
             ],
             required_filter_attributes=required_filter_attributes,
@@ -2037,7 +2043,9 @@ def parametrize_numerical_condition_above_below_all(
     threshold_unit: str | None | UndefinedType = UNDEFINED,
     unit_attributes: dict | None = None,
 ) -> list[tuple[str, dict[str, Any], list[ConditionStateDescription]]]:
-    """Parametrize above/below/between threshold cases for state-value numerical conditions under behavior=all.
+    """Parametrize threshold cases for state-value numerical conditions.
+
+    Uses behavior=all.
 
     See `parametrize_numerical_condition_above_below_any` for the structure
     of the generated test cases; the only difference is that this helper
@@ -2130,14 +2138,14 @@ def parametrize_numerical_condition_above_below_all(
                 threshold_unit,
             ),
             target_states=[
-                ("21", unit_attributes),
+                ("20", unit_attributes),
                 ("50", unit_attributes),
-                ("79", unit_attributes),
+                ("80", unit_attributes),
             ],
             other_states=[
                 ("0", unit_attributes),
-                ("20", unit_attributes),
-                ("80", unit_attributes),
+                ("19", unit_attributes),
+                ("81", unit_attributes),
                 ("100", unit_attributes),
             ],
             required_filter_attributes=required_filter_attributes,
@@ -2157,10 +2165,11 @@ def parametrize_numerical_attribute_condition_above_below_any(
     attribute_required: bool = False,
     attribute_value_scale: float = 1.0,
 ) -> list[tuple[str, dict[str, Any], list[ConditionStateDescription]]]:
-    """Parametrize above/below/between threshold cases for attribute-based numerical conditions under behavior=any.
+    """Parametrize threshold cases for attribute-based numerical conditions.
 
-    Generates state sequences for a condition that reads its tracked value
-    from a state attribute (e.g. `climate.target_humidity`). The condition
+    Uses behavior=any. Generates state sequences for a condition
+    that reads its tracked value from a state attribute
+    (e.g. `climate.target_humidity`). The condition
     is exercised across three threshold types in turn — "above", "below",
     "between" — and for each, the helper invokes
     `parametrize_condition_states_any` with target/other states populated
@@ -2276,14 +2285,14 @@ def parametrize_numerical_attribute_condition_above_below_any(
                 threshold_unit,
             ),
             target_states=[
-                (state, {attribute: 21 * s} | unit_attributes),
+                (state, {attribute: 20 * s} | unit_attributes),
                 (state, {attribute: 50 * s} | unit_attributes),
-                (state, {attribute: 79 * s} | unit_attributes),
+                (state, {attribute: 80 * s} | unit_attributes),
             ],
             other_states=[
                 (state, {attribute: 0 * s} | unit_attributes),
-                (state, {attribute: 20 * s} | unit_attributes),
-                (state, {attribute: 80 * s} | unit_attributes),
+                (state, {attribute: 19 * s} | unit_attributes),
+                (state, {attribute: 81 * s} | unit_attributes),
                 (state, {attribute: 100 * s} | unit_attributes),
             ],
             extra_excluded_states=extra_excluded_states,
@@ -2304,7 +2313,9 @@ def parametrize_numerical_attribute_condition_above_below_all(
     attribute_required: bool = False,
     attribute_value_scale: float = 1.0,
 ) -> list[tuple[str, dict[str, Any], list[ConditionStateDescription]]]:
-    """Parametrize above/below/between threshold cases for attribute-based numerical conditions under behavior=all.
+    """Parametrize threshold cases for attribute-based numerical conditions.
+
+    Uses behavior=all.
 
     See `parametrize_numerical_attribute_condition_above_below_any` for the
     structure of the generated test cases; the only difference is that this
@@ -2421,14 +2432,14 @@ def parametrize_numerical_attribute_condition_above_below_all(
                 threshold_unit,
             ),
             target_states=[
-                (state, {attribute: 21 * s} | unit_attributes),
+                (state, {attribute: 20 * s} | unit_attributes),
                 (state, {attribute: 50 * s} | unit_attributes),
-                (state, {attribute: 79 * s} | unit_attributes),
+                (state, {attribute: 80 * s} | unit_attributes),
             ],
             other_states=[
                 (state, {attribute: 0 * s} | unit_attributes),
-                (state, {attribute: 20 * s} | unit_attributes),
-                (state, {attribute: 80 * s} | unit_attributes),
+                (state, {attribute: 19 * s} | unit_attributes),
+                (state, {attribute: 81 * s} | unit_attributes),
                 (state, {attribute: 100 * s} | unit_attributes),
             ],
             extra_excluded_states=extra_excluded_states,
@@ -2595,3 +2606,28 @@ async def assert_numerical_condition_unit_conversion(
         for state in fail_states:
             set_or_remove_state(hass, entity_id, state)
             assert cond.async_check() is False
+
+
+async def assert_availability_follows_source_entity(
+    hass: HomeAssistant,
+    entity_id: str,
+    source_entity_id: str,
+) -> None:
+    """Check that entity becomes unavailable when source entity is unavailable."""
+    state = hass.states.get(entity_id)
+    assert state is not None
+    assert state.state != STATE_UNAVAILABLE
+
+    hass.states.async_set(source_entity_id, STATE_UNAVAILABLE)
+    await hass.async_block_till_done()
+
+    state = hass.states.get(entity_id)
+    assert state is not None
+    assert state.state == STATE_UNAVAILABLE
+
+    hass.states.async_set(source_entity_id, STATE_UNKNOWN)
+    await hass.async_block_till_done()
+
+    state = hass.states.get(entity_id)
+    assert state is not None
+    assert state.state != STATE_UNAVAILABLE

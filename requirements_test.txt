@@ -34,7 +34,7 @@ respx==0.23.1
 syrupy==5.2.0
 tqdm==4.67.1
 unidiff==0.7.5
-homeassistant==2026.6.0
+homeassistant==2026.6.1
 aiohasupervisor==0.4.3
 
 SQLAlchemy==2.0.49

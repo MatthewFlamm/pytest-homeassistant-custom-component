@@ -27,6 +27,7 @@ files = [
 
 # remove requirements for development only, i.e not related to homeassistant tests
 requirements_remove = [
+    "ast-serialize",
     "codecov",
     "librt",
     "mypy",

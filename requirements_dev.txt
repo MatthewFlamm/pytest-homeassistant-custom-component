@@ -1,4 +1,5 @@
 # This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
+ast-serialize==0.3.0
 astroid==4.0.4
 librt==0.11.0
 mypy==2.1.0

@@ -2037,7 +2037,7 @@ def mock_bleak_scanner_start() -> Generator[MagicMock]:
             bluetooth_scanner.OriginalBleakScanner,  # pylint: disable=c-extension-no-member
             "start",
         ) as mock_bleak_scanner_start,
-        patch.object(bluetooth_scanner, "HaScanner"),
+        patch("homeassistant.components.bluetooth.HaScanner"),
         patch.object(
             bluetooth_manager, "MGMTBluetoothCtl", return_value=mock_mgmt_bluetooth_ctl
         ),

@@ -94,7 +94,12 @@ async def target_entities(
         "Test Label"
     )
 
-    device = dr.DeviceEntry(id="test_device", area_id=area.id, labels={label.label_id})
+    device = dr.DeviceEntry(
+        config_entry_id=config_entry.entry_id,
+        id="test_device",
+        area_id=area.id,
+        labels={label.label_id},
+    )
     mock_device_registry(hass, {device.id: device})
 
     entity_reg = er.async_get(hass)
@@ -252,9 +257,9 @@ def _parametrize_condition_states(
     *,
     condition: str,
     condition_options: dict[str, Any] | None = None,
-    target_states: list[str | None | tuple[str | None, dict]],
-    other_states: list[str | None | tuple[str | None, dict]],
-    extra_excluded_states: list[str | None | tuple[str | None, dict]] | None = None,
+    target_states: list[str | tuple[str | None, dict] | None],
+    other_states: list[str | tuple[str | None, dict] | None],
+    extra_excluded_states: list[str | tuple[str | None, dict] | None] | None = None,
     required_filter_attributes: dict | None,
     condition_true_if_invalid: bool,
     excluded_entities_from_other_domain: bool,
@@ -276,7 +281,7 @@ def _parametrize_condition_states(
     )
 
     def state_with_attributes(
-        state: str | None | tuple[str | None, dict],
+        state: str | tuple[str | None, dict] | None,
         condition_true: bool,
         condition_true_first_entity: bool,
     ) -> ConditionStateDescription:
@@ -362,9 +367,9 @@ def parametrize_condition_states_any(
     *,
     condition: str,
     condition_options: dict[str, Any] | None = None,
-    target_states: list[str | None | tuple[str | None, dict]],
-    other_states: list[str | None | tuple[str | None, dict]],
-    extra_excluded_states: list[str | None | tuple[str | None, dict]] | None = None,
+    target_states: list[str | tuple[str | None, dict] | None],
+    other_states: list[str | tuple[str | None, dict] | None],
+    extra_excluded_states: list[str | tuple[str | None, dict] | None] | None = None,
     required_filter_attributes: dict | None = None,
     excluded_entities_from_other_domain: bool = False,
 ) -> list[tuple[str, dict[str, Any], list[ConditionStateDescription]]]:
@@ -421,9 +426,9 @@ def parametrize_condition_states_all(
     *,
     condition: str,
     condition_options: dict[str, Any] | None = None,
-    target_states: list[str | None | tuple[str | None, dict]],
-    other_states: list[str | None | tuple[str | None, dict]],
-    extra_excluded_states: list[str | None | tuple[str | None, dict]] | None = None,
+    target_states: list[str | tuple[str | None, dict] | None],
+    other_states: list[str | tuple[str | None, dict] | None],
+    extra_excluded_states: list[str | tuple[str | None, dict] | None] | None = None,
     required_filter_attributes: dict | None = None,
     excluded_entities_from_other_domain: bool = False,
 ) -> list[tuple[str, dict[str, Any], list[ConditionStateDescription]]]:
@@ -483,10 +488,10 @@ def parametrize_trigger_states(
     *,
     trigger: str,
     trigger_options: dict[str, Any] | None = None,
-    target_states: list[str | None | tuple[str | None, dict]],
-    other_states: list[str | None | tuple[str | None, dict]],
-    extra_excluded_states: list[str | None | tuple[str | None, dict]] | None = None,
-    extra_invalid_states: list[str | None | tuple[str | None, dict]] | None = None,
+    target_states: list[str | tuple[str | None, dict] | None],
+    other_states: list[str | tuple[str | None, dict] | None],
+    extra_excluded_states: list[str | tuple[str | None, dict] | None] | None = None,
+    extra_invalid_states: list[str | tuple[str | None, dict] | None] | None = None,
     required_filter_attributes: dict | None = None,
     trigger_from_none: bool = True,
     retrigger_on_target_state: bool = False,
@@ -554,7 +559,7 @@ def parametrize_trigger_states(
     trigger_options = trigger_options or {}
 
     def _included_state_desc(
-        state: str | None | tuple[str | None, dict],
+        state: str | tuple[str | None, dict] | None,
     ) -> StateDescription:
         """Build a state for entities meant to match the trigger's target.
 
@@ -569,7 +574,7 @@ def parametrize_trigger_states(
         }
 
     def _excluded_state_desc(
-        state: str | None | tuple[str | None, dict],
+        state: str | tuple[str | None, dict] | None,
     ) -> StateDescription:
         """Build a state for entities outside the trigger's target.
 
@@ -588,10 +593,10 @@ def parametrize_trigger_states(
         }
 
     def state_with_attributes(
-        state: str | None | tuple[str | None, dict],
+        state: str | tuple[str | None, dict] | None,
         count: int,
         *,
-        others_state: str | None | tuple[str | None, dict] | UndefinedType = UNDEFINED,
+        others_state: str | tuple[str | None, dict] | UndefinedType | None = UNDEFINED,
     ) -> TriggerStateDescription:
         """Return TriggerStateDescription dict."""
         included = _included_state_desc(state)
@@ -818,7 +823,7 @@ def parametrize_trigger_states(
 
 
 def _add_threshold_unit(
-    options: dict[str, Any], threshold_unit: str | None | UndefinedType
+    options: dict[str, Any], threshold_unit: str | UndefinedType | None
 ) -> dict[str, Any]:
     """Add unit to trigger thresholds if threshold_unit is provided."""
     if threshold_unit is UNDEFINED:
@@ -837,7 +842,7 @@ def parametrize_numerical_attribute_changed_trigger_states(
     state: str,
     attribute: str,
     *,
-    threshold_unit: str | None | UndefinedType = UNDEFINED,
+    threshold_unit: str | UndefinedType | None = UNDEFINED,
     trigger_options: dict[str, Any] | None = None,
     required_filter_attributes: dict | None = None,
     unit_attributes: dict | None = None,
@@ -983,7 +988,7 @@ def parametrize_numerical_attribute_crossed_threshold_trigger_states(
     state: str,
     attribute: str,
     *,
-    threshold_unit: str | None | UndefinedType = UNDEFINED,
+    threshold_unit: str | UndefinedType | None = UNDEFINED,
     trigger_options: dict[str, Any] | None = None,
     required_filter_attributes: dict | None = None,
     unit_attributes: dict | None = None,
@@ -1154,7 +1159,7 @@ def parametrize_numerical_state_value_changed_trigger_states(
     trigger: str,
     *,
     device_class: str,
-    threshold_unit: str | None | UndefinedType = UNDEFINED,
+    threshold_unit: str | UndefinedType | None = UNDEFINED,
     trigger_options: dict[str, Any] | None = None,
     unit_attributes: dict | None = None,
 ) -> list[tuple[str, dict[str, Any], list[TriggerStateDescription]]]:
@@ -1235,7 +1240,7 @@ def parametrize_numerical_state_value_crossed_threshold_trigger_states(
     trigger: str,
     *,
     device_class: str,
-    threshold_unit: str | None | UndefinedType = UNDEFINED,
+    threshold_unit: str | UndefinedType | None = UNDEFINED,
     trigger_options: dict[str, Any] | None = None,
     unit_attributes: dict | None = None,
 ) -> list[tuple[str, dict[str, Any], list[TriggerStateDescription]]]:
@@ -1888,7 +1893,7 @@ def parametrize_numerical_condition_above_below_any(
     *,
     device_class: str,
     condition_options: dict[str, Any] | None = None,
-    threshold_unit: str | None | UndefinedType = UNDEFINED,
+    threshold_unit: str | UndefinedType | None = UNDEFINED,
     unit_attributes: dict | None = None,
 ) -> list[tuple[str, dict[str, Any], list[ConditionStateDescription]]]:
     """Parametrize threshold cases for state-value numerical conditions.
@@ -2011,7 +2016,7 @@ def parametrize_numerical_condition_above_below_all(
     *,
     device_class: str,
     condition_options: dict[str, Any] | None = None,
-    threshold_unit: str | None | UndefinedType = UNDEFINED,
+    threshold_unit: str | UndefinedType | None = UNDEFINED,
     unit_attributes: dict | None = None,
 ) -> list[tuple[str, dict[str, Any], list[ConditionStateDescription]]]:
     """Parametrize threshold cases for state-value numerical conditions.
@@ -2131,7 +2136,7 @@ def parametrize_numerical_attribute_condition_above_below_any(
     *,
     condition_options: dict[str, Any] | None = None,
     required_filter_attributes: dict | None = None,
-    threshold_unit: str | None | UndefinedType = UNDEFINED,
+    threshold_unit: str | UndefinedType | None = UNDEFINED,
     unit_attributes: dict | None = None,
     attribute_required: bool = False,
     attribute_value_scale: float = 1.0,
@@ -2279,7 +2284,7 @@ def parametrize_numerical_attribute_condition_above_below_all(
     *,
     condition_options: dict[str, Any] | None = None,
     required_filter_attributes: dict | None = None,
-    threshold_unit: str | None | UndefinedType = UNDEFINED,
+    threshold_unit: str | UndefinedType | None = UNDEFINED,
     unit_attributes: dict | None = None,
     attribute_required: bool = False,
     attribute_value_scale: float = 1.0,

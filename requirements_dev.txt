@@ -1,8 +1,8 @@
 # This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.
-ast-serialize==0.3.0
+ast-serialize==0.6.0
 astroid==4.0.4
-librt==0.11.0
-mypy==2.1.0
+librt==0.13.0
+mypy==2.3.0
 prek==0.2.28
 pylint==4.0.6
 pylint-per-file-ignores==3.2.1

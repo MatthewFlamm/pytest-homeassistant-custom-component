@@ -9,7 +9,7 @@
 -c homeassistant/package_constraints.txt
 -r requirements_test_pre_commit.txt
 # ast-serialize is an internal mypy dependency
-coverage==7.15.2
+coverage==7.15.4
 freezegun==1.5.5
 # librt is an internal mypy dependency
 license-expression==30.4.3
@@ -31,15 +31,15 @@ pytest==9.0.3
 requests==2.34.2
 requests-mock==1.12.1
 respx==0.23.1
-syrupy==5.5.3
+syrupy==6.0.0
 tqdm==4.67.1
 unidiff==1.0.0
-homeassistant==2026.8.3
+homeassistant==2026.9.0b0
 aiohasupervisor==0.6.0
 
-SQLAlchemy==2.0.51
+SQLAlchemy==2.0.52
 
 paho-mqtt==2.1.0
 
-numpy==2.3.2
+numpy==2.5.2
 

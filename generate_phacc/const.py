@@ -5,6 +5,7 @@ REQUIREMENTS_FILE = "requirements_test.txt"
 CONST_FILE = "const.py"
 
 REQUIREMENTS_FILE_DEV = "requirements_dev.txt"
+REQUIREMENTS_FILE_PRE_COMMIT = "requirements_test_pre_commit.txt"
 
 path = "."
 clone = "git clone https://github.com/home-assistant/core.git tmp_dir"

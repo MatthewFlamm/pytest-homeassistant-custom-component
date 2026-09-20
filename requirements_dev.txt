@@ -23,3 +23,7 @@ types-pytz==2026.3.1.20260727
 types-PyYAML==6.0.12.20260724
 types-requests==2.33.0.20260712
 types-xmltodict==1.0.1.20260518
+codespell==2.4.3
+ruff==0.16.3
+yamllint==1.38.0
+zizmor==1.29.0

@@ -41,7 +41,10 @@ import freezegun
 import multidict
 import pytest
 import pytest_asyncio
-import pytest_socket
+try:
+    import pytest_socket
+except ImportError:
+    pytest_socket = None
 import requests_mock
 import respx
 from syrupy.assertion import SnapshotAssertion
@@ -217,8 +220,9 @@ def pytest_runtest_setup() -> None:
       stops freeze_time, which otherwise raises IndexError, see
       https://github.com/spulec/freezegun/issues/345.
     """
-    pytest_socket.socket_allow_hosts(["127.0.0.1"])
-    pytest_socket.disable_socket(allow_unix_socket=True)
+    if pytest_socket is not None:
+        pytest_socket.socket_allow_hosts(["127.0.0.1"])
+        pytest_socket.disable_socket(allow_unix_socket=True)
 
     def _validate_host(host):
         if host in ("localhost", "127.0.0.1", "::1", None, "", "0.0.0.0", "::"):
@@ -2259,6 +2263,15 @@ def service_calls(hass: HomeAssistant) -> Generator[list[ServiceCall]]:
 def snapshot(snapshot: SnapshotAssertion) -> SnapshotAssertion:
     """Return snapshot assertion fixture with the Home Assistant extension."""
     return snapshot.use_extension(HomeAssistantSnapshotExtension)
+
+
+# Only define socket_enabled fixture if pytest-socket is not available
+# When pytest-socket is installed, it provides its own socket_enabled fixture
+if pytest_socket is None:
+    @pytest.fixture
+    def socket_enabled() -> None:
+        """Fixture to enable socket (no-op when pytest-socket is not installed)."""
+        return None
 
 
 @pytest.fixture

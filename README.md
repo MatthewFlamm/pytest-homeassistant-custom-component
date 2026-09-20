@@ -37,6 +37,21 @@ tests/
         return snapshot.use_extension(HomeAssistantSnapshotExtension)
 ```
 
+## Installation
+
+### Basic Installation
+```bash
+pip install pytest-homeassistant-custom-component
+```
+
+### With Socket Testing Support
+If you need network socket testing capabilities (using pytest-socket), install with the socket extra:
+```bash
+pip install pytest-homeassistant-custom-component[socket]
+```
+
+The pytest-socket plugin helps prevent tests from making real network calls by blocking socket access. This is optional and only needed if you want to ensure your tests don't accidentally make network connections.
+
 ## Examples:
 * See [list of custom components](https://github.com/MatthewFlamm/pytest-homeassistant-custom-component/network/dependents) as examples that use this package.
 * Also see tests for `simple_integration` in this repository.

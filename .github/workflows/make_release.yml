@@ -21,8 +21,23 @@ jobs:
           dry_run: true
           bump: ${{ github.event.inputs.type }}
           github_token: ${{ secrets.REPO_SCOPED_TOKEN }}
-      - run: echo "${{ steps.next_version.outputs.version }}" > version
-      - run: echo "${{ steps.next_version.outputs.version }}"
+      - name: Determine prerelease
+        id: prerelease
+        # When the bundled homeassistant version is a pre-release (e.g. 2026.5.0b0),
+        # append a PEP 440 pre-release segment (b0) to the normally-bumped version so
+        # phacc is published as a pre-release.
+        run: |
+          HA_VERSION="${{ steps.current-ha-version.outputs.current-ha-version }}"
+          BASE_VERSION="${{ steps.next_version.outputs.version }}"
+          if [[ "$HA_VERSION" == *b* ]]; then
+            echo "is_prerelease=true" >> "$GITHUB_OUTPUT"
+            echo "version=${BASE_VERSION}b0" >> "$GITHUB_OUTPUT"
+          else
+            echo "is_prerelease=false" >> "$GITHUB_OUTPUT"
+            echo "version=${BASE_VERSION}" >> "$GITHUB_OUTPUT"
+          fi
+      - run: echo "${{ steps.prerelease.outputs.version }}" > version
+      - run: echo "${{ steps.prerelease.outputs.version }}"
       - id: git_commit
         run: |
           git config user.name 'Matthew Flamm'
@@ -42,12 +57,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.REPO_SCOPED_TOKEN }}
         with:
           tag_name: ${{ steps.next_version.outputs.version }}
-          release_name: Release ${{ steps.next_version.outputs.version }}
+          release_name: Release ${{ steps.prerelease.outputs.version }}
           body: |
             Automatic release
             homeassistant version: ${{ steps.current-ha-version.outputs.current-ha-version }}
           draft: false
-          prerelease: false
+          prerelease: ${{ steps.prerelease.outputs.is_prerelease }}
       - name: Set up Python
         uses: actions/setup-python@v6
         with:

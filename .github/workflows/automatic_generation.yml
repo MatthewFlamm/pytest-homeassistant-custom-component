@@ -91,7 +91,7 @@ jobs:
       - name: need_to_release_print
         run: "echo ${{ needs.generate_package.outputs.need_to_release }}"
       - id: next_version
-        uses: zwaldowski/semver-release-action@v4
+        uses: zwaldowski/semver-release-action@v6
         with:
           dry_run: true
           bump: patch
@@ -106,7 +106,7 @@ jobs:
           git commit -m "Bump version"
           git push
           echo "::set-output name=sha::$(git rev-parse HEAD)"
-      - uses: zwaldowski/semver-release-action@v4
+      - uses: zwaldowski/semver-release-action@v6
         with:
           github_token: ${{ secrets.REPO_SCOPED_TOKEN }}
           sha: ${{ steps.git_commit.outputs.sha }}

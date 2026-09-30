@@ -36,5 +36,10 @@ setup(
         "Programming Language :: Python :: 3.14",
         "Topic :: Software Development :: Testing",
     ],
-    entry_points={"pytest11": ["homeassistant = pytest_homeassistant_custom_component.plugins"]},
+    entry_points={
+        "pytest11": [
+            "homeassistant = pytest_homeassistant_custom_component.plugins",
+            "homeassistant_deprecation = pytest_homeassistant_custom_component.deprecation",
+        ]
+    },
 )

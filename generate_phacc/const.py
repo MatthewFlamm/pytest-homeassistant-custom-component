@@ -25,6 +25,14 @@ files = [
     "patch_recorder.py",
 ]
 
+# Modules written here rather than extracted from homeassistant/core, copied
+# into the package after generation. Keep them out of `files`, which is the
+# list of things core owns.
+EXTRAS_DIR = "extras"
+extras = [
+    "deprecation.py",
+]
+
 # remove requirements for development only, i.e not related to homeassistant tests
 requirements_remove = [
     "ast-serialize",

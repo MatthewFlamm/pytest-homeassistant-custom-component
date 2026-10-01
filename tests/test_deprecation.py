@@ -49,29 +49,29 @@ def probe(pytester: pytest.Pytester) -> None:
     pytester.makepyfile(test_probe=TEST_USING_PROBE)
 
 
-def test_off_by_default(pytester: pytest.Pytester, probe: None) -> None:
-    """An integration that adds the package does not inherit a failing suite.
-
-    The whole reason this is opt-in: phacc tracks homeassistant releases with
-    patch bumps, so anything on by default would break dependents' suites on
-    an automatic update.
-    """
+def test_fails_by_default(pytester: pytest.Pytester, probe: None) -> None:
+    """A report fails the suite without anything being configured."""
     pytester.makeini(ini())
-    pytester.runpytest_subprocess().assert_outcomes(passed=1)
-
-
-def test_fails_when_enabled(pytester: pytest.Pytester, probe: None) -> None:
-    """With the option on, the report becomes the test's failure."""
-    pytester.makeini(ini("phacc_fail_on_deprecation_report = true"))
     result = pytester.runpytest_subprocess()
     # The check runs after the test body, so the report arrives as a teardown
-    # error rather than a failure -- the same shape `reset_globals` already
-    # uses to fail a test that serialized a mock object.
+    # error rather than a failure -- the same shape `reset_globals` already uses
+    # to fail a test that serialized a mock object.
     result.assert_outcomes(passed=1, errors=1)
     # The report names what to go and fix, which is the point of surfacing it.
     result.stdout.fnmatch_lines(
         ["*probe_integration*calls something deprecated*2099.1.0*"]
     )
+
+
+def test_can_be_turned_off(pytester: pytest.Pytester, probe: None) -> None:
+    """An escape hatch, for a suite with a backlog of reports to work through.
+
+    Without this, adopting a version of this package that has the check would
+    be a wall rather than a to-do list for anybody holding more than one
+    report.
+    """
+    pytester.makeini(ini("phacc_fail_on_deprecation_report = false"))
+    pytester.runpytest_subprocess().assert_outcomes(passed=1)
 
 
 def test_ignores_reports_about_anything_but_a_custom_integration(
@@ -83,7 +83,7 @@ def test_ignores_reports_about_anything_but_a_custom_integration(
     in it at all -- the one case Home Assistant reports without naming a
     custom integration, rather than a record built here to look like one.
     """
-    pytester.makeini(ini("phacc_fail_on_deprecation_report = true"))
+    pytester.makeini(ini())
     pytester.makepyfile(
         """
         from homeassistant.helpers.frame import ReportBehavior, report_usage
@@ -106,7 +106,6 @@ def test_domains_option_narrows_what_fails(
     """Naming other domains leaves this one's reports alone."""
     pytester.makeini(
         ini(
-            "phacc_fail_on_deprecation_report = true",
             "phacc_deprecation_report_domains =",
             "    some_other_integration",
         )
@@ -120,7 +119,6 @@ def test_domains_option_matches_the_reported_domain(
     """Naming this domain fails on it, so the filter is doing the deciding."""
     pytester.makeini(
         ini(
-            "phacc_fail_on_deprecation_report = true",
             "phacc_deprecation_report_domains =",
             "    probe_integration",
         )

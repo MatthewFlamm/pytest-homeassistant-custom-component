@@ -14,10 +14,8 @@ from const import (
     REQUIREMENTS_FILE,
     CONST_FILE,
     REQUIREMENTS_FILE_DEV,
-    EXTRAS_DIR,
     LICENSE_FILE_HA,
     LICENSE_FILE_NEW,
-    extras,
     files,
     requirements_remove,
     HA_VERSION_FILE,
@@ -141,11 +139,6 @@ def cli(regen):
             body = "".join(data[line_after_docstring:])
             with open(f, "w") as new_file:
                 new_file.write("".join([new_docstring, body]))
-
-        # Not from core, so this runs after the loop above that says everything
-        # in the package is.
-        for f in extras:
-            shutil.copy2(os.path.join(EXTRAS_DIR, f), os.path.join(PACKAGE_DIR, f))
 
         added_text = "# This file is originally from homeassistant/core and modified by pytest-homeassistant-custom-component.\n"
 

@@ -37,26 +37,18 @@ tests/
         return snapshot.use_extension(HomeAssistantSnapshotExtension)
 ```
 
-## Catching deprecated Home Assistant API usage
+## Deprecated Home Assistant API usage fails your tests
 
 Home Assistant reports deprecated and incorrect API usage through
 `homeassistant.helpers.frame.report_usage`. That report *raises* for a
 homeassistant/core caller and for a call made straight from a test, but for a
 custom integration it only *logs*. A custom integration's test suite therefore
-stays green while its production code calls something Home Assistant has already
-scheduled for removal, and the warning is only seen once a user pastes a log into
-an issue.
+stayed green while its production code called something Home Assistant had
+already scheduled for removal, and the warning was only seen once a user pasted
+a log into an issue.
 
-Set `phacc_fail_on_deprecation_report` to turn those reports into test failures:
-
-```ini
-[pytest]
-asyncio_mode = auto
-phacc_fail_on_deprecation_report = true
-```
-
-The failure quotes Home Assistant's own report, which names the file, the line
-and the source line that triggered it:
+Those reports now fail the test that produced them. The failure quotes Home
+Assistant's own report, which names the file, the line and the source line:
 
 ```
 Detected that custom integration 'my_integration' calls
@@ -65,8 +57,14 @@ custom_components/my_integration/__init__.py, line 460: device = dev_reg.async_g
 This will stop working in Home Assistant 2027.8.0
 ```
 
-This is off by default, so adding it to an existing suite cannot change that
-suite's result until you ask for it.
+If you have a backlog of reports to work through, turn it off and come back to
+it:
+
+```ini
+[pytest]
+asyncio_mode = auto
+phacc_fail_on_deprecation_report = false
+```
 
 If your tests deliberately load somebody else's custom integration too, name the
 domains you are responsible for so only your own reports fail the suite:

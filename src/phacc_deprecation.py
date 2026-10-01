@@ -1,17 +1,17 @@
 """
 Fail tests whose run makes Home Assistant report a custom integration.
 
-Unlike everything under ``pytest_homeassistant_custom_component``, this module
-is written here rather than extracted from homeassistant/core. It exists
-because core cannot supply it: ``report_usage`` raises for core callers and for
-callers with no integration frame, and only *custom* integrations get
-``ReportBehavior.LOG``. A custom integration therefore has no way to learn
-from its own test suite that it called a deprecated API -- the report goes to a
-log nobody reads until a user pastes it into an issue, by which time the
-removal version may already be close.
+Unlike `pytest_homeassistant_custom_component`, this module is written here
+rather than extracted from homeassistant/core, and it lives beside that package
+rather than inside it because the generator rebuilds that directory from
+scratch on every run.
 
-Off unless ``phacc_fail_on_deprecation_report`` is set, so adding it breaks
-nobody's suite on an automatic version bump.
+It exists because core cannot supply it: `report_usage` raises for core callers
+and for callers with no integration frame, and only *custom* integrations get
+`ReportBehavior.LOG`. A custom integration therefore has no way to learn from
+its own test suite that it called a deprecated API -- the report goes to a log
+nobody reads until a user pastes it into an issue, by which time the removal
+version may be close.
 """
 
 from __future__ import annotations
@@ -22,8 +22,8 @@ import logging
 import pytest
 
 # Every report Home Assistant makes about an integration is formatted by one of
-# two ``_LOGGER.log`` calls in ``homeassistant.helpers.frame``, and both pass
-# the integration kind first and the domain second. Reading those two arguments
+# two `_LOGGER.log` calls in `homeassistant.helpers.frame`, and both pass the
+# integration kind first and the domain second. Reading those two arguments
 # keeps this off the rendered wording, which is not a contract and has been
 # reworded before.
 _FRAME_LOGGER = "homeassistant.helpers.frame"
@@ -36,13 +36,14 @@ _INI_DOMAINS = "phacc_deprecation_report_domains"
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:
-    """Register the ini options that enable and narrow the check."""
+    """Register the ini options that disable and narrow the check."""
     parser.addini(
         _INI_ENABLED,
         "Fail a test if Home Assistant reports a custom integration for "
-        "deprecated or incorrect API usage. Off by default.",
+        "deprecated or incorrect API usage. On by default; set false to "
+        "silence it while working through a backlog of reports.",
         type="bool",
-        default=False,
+        default=True,
     )
     parser.addini(
         _INI_DOMAINS,
@@ -59,13 +60,13 @@ class _ReportCollector(logging.Handler):
     """Collect the reports that blame a custom integration under test."""
 
     def __init__(self, domains: frozenset[str]) -> None:
-        """Watch ``domains``, or every custom integration when it is empty."""
+        """Watch `domains`, or every custom integration when it is empty."""
         super().__init__()
         self._domains = domains
         self.reports: list[str] = []
 
     def emit(self, record: logging.LogRecord) -> None:
-        """Keep ``record`` if it is a report about a watched integration."""
+        """Keep `record` if it is a report about a watched integration."""
         args = record.args
         if not isinstance(args, tuple) or len(args) <= _DOMAIN_ARG:
             return
@@ -85,7 +86,7 @@ def fail_on_deprecation_report(request: pytest.FixtureRequest) -> Generator[None
     so the failure says where to look without a traceback.
 
     Every test that reaches a reported call fails, not only the first: Home
-    Assistant deduplicates reports by call site, but ``reset_globals`` clears
+    Assistant deduplicates reports by call site, but `reset_globals` clears
     that set after each test, so each test starts able to see its own.
     """
     if not request.config.getini(_INI_ENABLED):

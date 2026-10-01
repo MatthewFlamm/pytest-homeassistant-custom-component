@@ -5,7 +5,7 @@ This file is originally from homeassistant/core and modified by pytest-homeassis
 """
 
 import asyncio
-from collections.abc import AsyncGenerator, Callable, Coroutine, Generator
+from collections.abc import AsyncGenerator, Callable, Coroutine, Generator, Sequence
 from contextlib import AsyncExitStack, asynccontextmanager, contextmanager
 import datetime
 import functools
@@ -37,6 +37,7 @@ from aiohttp.typedefs import JSONDecoder
 from aiohttp.web import Application
 import bcrypt
 from bleak_retry_connector import bleak_manager
+import execnet
 import freezegun
 import multidict
 import pytest
@@ -179,6 +180,15 @@ def pytest_configure(config: pytest.Config) -> None:
     )
     if config.getoption("verbose") > 0:
         logging.getLogger().setLevel(logging.DEBUG)
+
+
+@pytest.hookimpl(optionalhook=True)
+def pytest_xdist_setupnodes(
+    config: pytest.Config, specs: Sequence[execnet.XSpec]
+) -> None:
+    """Log the number of xdist workers, also when running with -qq."""
+    if reporter := config.pluginmanager.get_plugin("terminalreporter"):
+        reporter.write_line(f"xdist workers: {len(specs)}")
 
 
 class HASocketBlockedError(pytest_socket.SocketBlockedError):

@@ -4,6 +4,8 @@ This changelog only includes changes directly related to the structure of this p
 Changes to minor version indicate a change structurally in this pacakge.  Changes in patch indicate changes solely from homeassistant/core. The latter does not imply no breaking changes are introduced.
 
 ## 0.13.0
+* Releases tracking a homeassistant pre-release (e.g. `2026.5.0b0`) are now
+  published as pre-releases (e.g. `0.13.337b0`) (#250).
 * bump minimum Python version to Python 3.10
 
 ## 0.8.0

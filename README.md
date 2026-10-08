@@ -6,6 +6,19 @@ Package to automatically extract testing plugins from Home Assistant for custom 
 The goal is to provide the same functionality as the tests in home-assistant/core.
 pytest-homeassistant-custom-component is updated daily according to the latest homeassistant release including beta.
 
+## Installation
+
+```sh
+pip install pytest-homeassistant-custom-component
+```
+
+To run linting, type checking, or pre-commit checks for your custom component
+with tool versions matching Home Assistant, install the `dev` extra:
+
+```sh
+pip install "pytest-homeassistant-custom-component[dev]"
+```
+
 ## Usage:
 * All pytest fixtures can be used as normal, like `hass`
 * For helpers:

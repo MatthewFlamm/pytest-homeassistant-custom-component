@@ -18,6 +18,9 @@ setup(
     name="pytest-homeassistant-custom-component",
     version=__version__,
     packages=find_packages(where="src"),
+    # Written here rather than extracted from core, so it lives beside the
+    # generated package: `generate_phacc` rebuilds that directory from scratch.
+    py_modules=["phacc_deprecation"],
     package_dir={"": "src"},
     python_requires=">=3.14",
     install_requires=requirements,
@@ -36,5 +39,10 @@ setup(
         "Programming Language :: Python :: 3.14",
         "Topic :: Software Development :: Testing",
     ],
-    entry_points={"pytest11": ["homeassistant = pytest_homeassistant_custom_component.plugins"]},
+    entry_points={
+        "pytest11": [
+            "homeassistant = pytest_homeassistant_custom_component.plugins",
+            "phacc_deprecation = phacc_deprecation",
+        ]
+    },
 )

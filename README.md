@@ -1,5 +1,5 @@
 > [!IMPORTANT]
-> `homeassistant/core` now offers testing infrastructure into it's own package. See [pytest-home-assistant readme](https://github.com/home-assistant/core/tree/dev/packages/pytest-homeassistant).  `pytest-homeassistant-custom-component`, this package, is now broken.  Custom component developers should move to the centrally managed package.
+> `homeassistant/core` now offers testing infrastructure into it's own package. See [pytest-homeassistant readme](https://github.com/home-assistant/core/tree/dev/packages/pytest-homeassistant).  `pytest-homeassistant-custom-component`, this package, is now broken.  Custom component developers should move to the centrally managed package.
 
 # pytest-homeassistant-custom-component
 

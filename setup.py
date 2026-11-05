@@ -10,6 +10,13 @@ with open("requirements_test.txt","r") as f:
         if "txt" not in line and "#" not in line:
             requirements.append(line)
 
+with open("requirements_dev.txt", "r") as f:
+    dev_requirements = [
+        line.strip()
+        for line in f
+        if line.strip() and not line.lstrip().startswith(("#", "-"))
+    ]
+
 with open("version", "r") as f:
     __version__ = f.read()
 
@@ -21,6 +28,7 @@ setup(
     package_dir={"": "src"},
     python_requires=">=3.14",
     install_requires=requirements,
+    extras_require={"dev": dev_requirements},
     license="MIT license",
     url="https://github.com/MatthewFlamm/pytest-homeassistant-custom-component",
     author_email="matthewflamm0@gmail.com",

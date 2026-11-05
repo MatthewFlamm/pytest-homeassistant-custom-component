@@ -14,6 +14,7 @@ from const import (
     REQUIREMENTS_FILE,
     CONST_FILE,
     REQUIREMENTS_FILE_DEV,
+    REQUIREMENTS_FILE_PRE_COMMIT,
     LICENSE_FILE_HA,
     LICENSE_FILE_NEW,
     files,
@@ -189,6 +190,14 @@ def cli(regen):
         add_dependency("paho-mqtt", data, new_data)
         add_dependency("numpy", data, new_data)
 
+        # Use the pre-commit pins from the same Home Assistant checkout as the tests.
+        with open(os.path.join(TMP_DIR, REQUIREMENTS_FILE_PRE_COMMIT), "r") as f:
+            for line in f:
+                requirement = line.strip()
+                if requirement and not requirement.startswith(("#", "-")):
+                    removed_data.append(f"{requirement}\n")
+
+        removed_data = list(dict.fromkeys(removed_data))
         removed_data.insert(0, added_text)
 
         with open(REQUIREMENTS_FILE, "w") as new_file:
